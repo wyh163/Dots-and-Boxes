@@ -1,0 +1,8 @@
+{
+    "R": "player",
+    "B": "computer",
+    "winner": "R",
+    "Date": "2017-07-30",
+    "Event": "2017 CCGC",
+    "game": "R(b1,v);B(f3,v);R(a2,h);B(a2,v);R(a3,h);B(b2,v);B(f4,v);R(c1,v);B(e5,h);R(c2,v);B(d6,h);R(e5,v);B(a3,v);R(a4,v);B(a5,h);R(e3,v);B(c2,h);R(d2,h);B(b5,v);R(e2,v);B(c3,v);R(d3,v);B(e4,h);R(e3,h);R(e4,v);R(f1,v);B(d4,v);R(c4,v);B(b4,h);R(c6,h);B(a6,h);R(d1,h);B(a5,v);B(d1,v);R(c1,h);R(e6,h);B(e1,v);B(f5,v);B(b6,h);R(f2,v);B(e1,h);B(e2,h);B(a1,h);R(a1,v);R(d3,h);B(d2,v);B(c3,h);B(c4,h);B(c5,h);B(d4,h);B(d5,h);B(d5,v);B(c5,v);B(b5,h);B(b4,v);B(a4,h);B(b3,v);B(b3,h);B(b2,h);B(b1,h)"
+}
