@@ -8,10 +8,11 @@ class Color(Enum):
 
 
 class DBException(Exception):
-    pass
+    def __init__(self, *args, **kwargs):
+        super(DBException, self).__init__(args, kwargs)
 
 
-class Player:
+class _Player:
     def __init__(self, color):
         self._color = color
         self.score = 0
@@ -76,7 +77,7 @@ class Piece:
 
 class PieceCoordinateError(DBException):
     def __init__(self, *args, **kwargs):
-        pass
+        super(PieceCoordinateError, self).__init__(args, kwargs)
 
 
 class Board:
@@ -137,7 +138,7 @@ class Board:
 
 class BoardError(DBException):
     def __init__(self, *args, **kwargs):
-        pass
+        super(BoardError, self).__init__(args, kwargs)
 
 
 class PieceHistory():

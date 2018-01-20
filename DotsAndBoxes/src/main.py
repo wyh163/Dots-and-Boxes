@@ -1,20 +1,20 @@
 # -*- coding: UTF-8 -*-
-from dots_and_boxes.dots_and_boxes import DotsAndBoxes
+from dots_and_boxes.dots_and_boxes import DotsAndBoxes, Player, Color
 
 
 if __name__ == '__main__':
-    '''
-    DotsAndBoxes().run()
-    '''
     db = DotsAndBoxes()
+    db.red_player = Player.RedPlayer("player1")
+    db.blue_player = Player.BluePlayer("player2")
     db.new_game()
     db.move_with_str("R(b1,v)")
     db.move_with_str("B(f3,v)")
     db.move_with_str("R(a2,h)")
     print(db.last_move)
     db.back()
+    print(db.history)
     print(db.last_move)
-    db.turn_to(3)
+    db.turn_to_step(3)
     print(db.last_move)
     db.move_with_str("B(a2,v)")
     db.move_with_str("R(a3,h)")

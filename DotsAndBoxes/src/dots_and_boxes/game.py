@@ -3,9 +3,12 @@ from .model import *
 
 
 class Game:
-    def __init__(self):
-        self._red_player = Player(Color.red)
-        self._blue_player = Player(Color.blue)
+    def __init__(self, red_player, blue_player):
+        if (not (red_player.color == Color.red and blue_player.color == Color.blue)):
+            raise GameError("Invalid players", red_player, blue_player)
+
+        self._red_player = red_player
+        self._blue_player = blue_player
         self._current_player = self._red_player
         self._piece_history = PieceHistory()
         self._board = Board()
@@ -121,11 +124,17 @@ class Game:
         return True
 
 
-class MoveError(DBException):
+class GameError(DBException):
     def __init__(self, *args, **kwargs):
-        pass
+        super(GameError, self).__init__(args, kwargs)
 
-class BackError(DBException):
+
+class MoveError(GameError):
     def __init__(self, *args, **kwargs):
-        pass
+        super(MoveError, self).__init__(args, kwargs)
+
+
+class BackError(GameError):
+    def __init__(self, *args, **kwargs):
+        super(BackError, self).__init__(args, kwargs)
 

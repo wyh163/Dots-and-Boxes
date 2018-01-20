@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 from .game import *
-from .model import Color
-import os
+from .model import Color, _Player
 
 
 class DotsAndBoxes:
@@ -10,6 +9,12 @@ class DotsAndBoxes:
         self._history = None
         self._current_move = None
         self._current_step = None
+        self._red_player = None
+        self._blue_player = None
+
+    @property
+    def history(self):
+        return self._history.copy()
 
     @property
     def last_move(self):
@@ -17,11 +22,72 @@ class DotsAndBoxes:
             raise DBError("Do not have step")
         return (self._current_step, self._history[self._current_step-1])
 
+    @property
+    def red_player(self):
+        return self._red_player
+    @red_player.setter
+    def red_player(self, value):
+        if (not value.color == Color.red):
+            raise DBError("Invalid players", value)
+
+        if (not self._current_game == None):
+            if (not self._current_game.is_end):
+                raise DBError("Current game is not over")
+
+        self._red_player = value
+
+    @property
+    def blue_player(self):
+        return self._blue_player
+    @blue_player.setter
+    def blue_player(self, value):
+        if (not value.color == Color.blue):
+            raise DBError("Invalid players", value)
+
+        if (not self._current_game == None):
+            if (not self._current_game.is_end):
+                raise DBError("Current game is not over")
+
+        self._blue_player = value
 
     def new_game(self):
-        self._current_game = Game()
+        if (not self._current_game == None):
+            if (not self._current_game.is_end):
+                raise DBError("Current game is not over")
+
+        if (self._red_player == None or self._blue_player == None):
+            raise DBError("Lack of player")
+
+        self._current_game = Game(self._red_player, self._blue_player)
         self._history = []
         self._current_step = 0
+
+    def end_game(self):
+        if (self._current_game == None):
+            raise DBError("Do not have current game")
+
+        self._current_game = None
+        self._history = None
+        self._current_move = None
+        self._current_step = None
+
+    def move(self, piece):
+        if (self._current_game == None):
+            raise DBError("Do not have current game")
+
+        color = piece[0]
+        coordinate = piece[1]
+
+        self._current_game.move(color, coordinate)
+
+        if (self._current_step < len(self._history)):  # 当从某一历史步直接下新步时 (先行判断可以避免_history越界)
+            if (not piece == self._history[self._current_step]):  # 如果新步与历史步的下一步历史不同
+                while (self._current_step < len(self._history)):  # 先删除这一历史步之后的数据
+                    self._history.pop()
+                self._history.append(piece)
+        else:
+            self._history.append(piece)
+        self._current_step = self._current_step + 1
 
     def move_with_str(self, input_str):
         if (self._current_game == None):
@@ -66,21 +132,6 @@ class DotsAndBoxes:
 
         return (color, (x, str(y), mode))
 
-    def move(self, piece):
-        color = piece[0]
-        coordinate = piece[1]
-
-        self._current_game.move(color, coordinate)
-
-        if (self._current_step < len(self._history)):  # 当从某一历史步直接下新步时 (先行判断可以避免_history越界)
-            if (not piece == self._history[self._current_step]):  # 如果新步与历史步的下一步历史不同
-                while (self._current_step < len(self._history)):  # 先删除这一历史步之后的数据
-                    self._history.pop()
-                self._history.append(piece)
-        else:
-            self._history.append(piece)
-        self._current_step = self._current_step + 1
-
     def back(self):
         if (self._current_game == None):
             raise DBError("Do not have current game")
@@ -91,7 +142,9 @@ class DotsAndBoxes:
 
         self._current_step = self._current_step - 1
 
-    def turn_to(self, step_num):
+    def turn_to_step(self, step_num):
+        if (self._current_game == None):
+            raise DBError("Do not have current game")
         if (step_num < 0 or step_num > len(self._history) or step_num == self._current_step):
             raise DBError("Invalid step num")
 
@@ -101,51 +154,37 @@ class DotsAndBoxes:
         while (self._current_step < step_num):
             self.move(self._history[self._current_step])
 
-    def run(self):
-        self._main_menu()
-        user_input = 0
-        while (not user_input == 4):
-            user_input = int(input("Please enter: "))
-            if (user_input == 1):
-                if (self._current_game == None):
-                    self.new_game()
-                self._play_game()
-            if (user_input == 2):
-                pass
-            if (user_input == 3):
-                pass
-
-    def _main_menu(self):
-        os.system('clear')
-        num = int(os.get_terminal_size()[0]/2)-10
-        print("="*num +     "=== Dots & Boxes ===" + "="*num)
+    def save_to_file(self, file_path):
         if (self._current_game == None):
-            print(" "*num + "    1 New Game      ")
-        else:
-            print(" "*num + "    1 Continue Game ")
-        print(" "*num +     "    2 Load Game     ")
-        print(" "*num +     "    3 Save Game     ")
-        print(" "*num +     "    4 Exit          ")
-        print("="*num +     "====================" + "="*num)
+            raise DBError("Do not have current game")
+        if (self._current_step == 0):
+            raise DBError("Do not have step data")
 
-    def _play_game(self):
-        os.system('clear')
-        print("Game is start.")
-        while (not self._current_game.is_end):
-            if (self._current_game.current_player == Color.red):
-                print("RED: ", end='')
-            else:
-                print("BLUE: ", end='')
-            input_str = input()
-            self.move(input_str)
-
-        if (self._current_game.winner == Color.red):
-            print("Winner is RED!")
-        else:
-            print("Winner is BLUE!")
+        history = self._current_game.history
+        for i in range(0, len(history)):
+            if (not self._history[i] == history[i]):
+                raise DBError("History data error", self._history, history)
 
 
 class DBError(DBException):
     def __init__(self, *args, **kwargs):
-        pass
+        super(DBError, self).__init__(args, kwargs)
+
+
+class Player(_Player):
+    def __init__(self, color, name):
+        super(Player, self).__init__(color)
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+    @staticmethod
+    def RedPlayer(name):
+        return Player(Color.red, name)
+
+    @staticmethod
+    def BluePlayer(name):
+        return Player(Color.blue, name)
 
