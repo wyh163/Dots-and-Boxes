@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 from dots_and_boxes.dots_and_boxes import DotsAndBoxes, Player, Color
+from datetime import datetime
 
 
 if __name__ == '__main__':
+    print(datetime.now())
     db = DotsAndBoxes()
     db.red_player = Player.RedPlayer("player1")
     db.blue_player = Player.BluePlayer("player2")
@@ -73,5 +75,6 @@ if __name__ == '__main__':
     db.move_with_str("B(b3,h)")
     db.move_with_str("B(b2,h)")
     db.move_with_str("B(b1,h)")
+    print(db.save_to_file("/home/ubuntu/",0,""))
     print(db._current_game.winner) #'''
 

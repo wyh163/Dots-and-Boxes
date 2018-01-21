@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from .game import *
 from .model import Color, _Player
+import json
 
 
 class DotsAndBoxes:
@@ -50,6 +51,10 @@ class DotsAndBoxes:
 
         self._blue_player = value
 
+    @property
+    def current_player(self):
+        return (self._red_player if self._current_game.current_player_color == Color.red else self._blue_player)
+
     def new_game(self):
         if (not self._current_game == None):
             if (not self._current_game.is_end):
@@ -71,14 +76,8 @@ class DotsAndBoxes:
         self._current_move = None
         self._current_step = None
 
-    def move(self, piece):
-        if (self._current_game == None):
-            raise DBError("Do not have current game")
-
-        color = piece[0]
-        coordinate = piece[1]
-
-        self._current_game.move(color, coordinate)
+    def _move(self, piece):
+        self._current_game.move(piece)
 
         if (self._current_step < len(self._history)):  # 当从某一历史步直接下新步时 (先行判断可以避免_history越界)
             if (not piece == self._history[self._current_step]):  # 如果新步与历史步的下一步历史不同
@@ -89,13 +88,24 @@ class DotsAndBoxes:
             self._history.append(piece)
         self._current_step = self._current_step + 1
 
+    def move(self, color, user_coordinate):
+        if (self._current_game == None):
+            raise DBError("Do not have current game")
+
+        if (not color == self._current_game.current_player_color):
+            raise MoveError("Player color is wrong")
+
+        piece = Piece(self.current_player, user_coordinate)
+        self._move(piece)
+
     def move_with_str(self, input_str):
         if (self._current_game == None):
             raise DBError("Do not have current game")
 
-        self.move(self._str_to_piece(input_str))
+        piece = self._str_to_coordinate(input_str)
+        self.move(piece[0], piece[1])
 
-    def _str_to_piece(self, input_str):
+    def _str_to_coordinate(self, input_str):
         color = x = y = mode = None
         try:
             if (input_str[0] == 'r' or input_str[0] == 'R'):
@@ -152,18 +162,64 @@ class DotsAndBoxes:
             self.back()
 
         while (self._current_step < step_num):
-            self.move(self._history[self._current_step])
+            self._move(self._history[self._current_step])
 
-    def save_to_file(self, file_path):
+    def _data_as_dict(self):
         if (self._current_game == None):
             raise DBError("Do not have current game")
         if (self._current_step == 0):
             raise DBError("Do not have step data")
 
-        history = self._current_game.history
-        for i in range(0, len(history)):
-            if (not self._history[i] == history[i]):
-                raise DBError("History data error", self._history, history)
+        pieces = []
+        for piece in self._current_game.history:
+            pieces.append({"timestamp": piece.datetime.timestamp(),
+                           "player": "r" if piece.color == Color.red else "b",
+                           "coordinate": "".join(piece.user_coordinate)})
+
+        dict = {"R": self._red_player.name,
+                "B": self._blue_player.name,
+                "is_end": self._current_game.is_end,
+                "timestamp": self._current_game.datetime.timestamp(),
+                "pieces": pieces}
+        if (self._current_game.is_end):
+            dict["winner"] = "R" if self._current_game.winner == Color.red else "B"
+        return dict
+
+    def save_to_file(self, file_path, mode=1, event=None):
+        dict = self._data_as_dict()
+        #'''
+        if (mode == 0):  # 非常智障的模式
+            if (not self._current_game.is_end):
+                raise DBError("Current game is not over")
+            if (event == None):
+                raise DBError("Invalid event")
+
+            pieces_str = ""
+            for piece in self._current_game.history:
+                if (piece.color == Color.red):
+                    pieces_str = pieces_str + "r"
+                else:
+                    pieces_str = pieces_str + "b"
+                pieces_str = pieces_str + "("
+                pieces_str = pieces_str + "".join(piece.user_coordinate[0:1])
+                pieces_str = pieces_str + ","
+                pieces_str = pieces_str + "".join(piece.user_coordinate[2])
+                pieces_str = pieces_str + ");"
+            dict = {"R": self._red_player.name,
+                    "B": self._blue_player.name,
+                    "winner": "R" if self._current_game.winner == Color.red else "B",
+                    "Date": self._current_game.datetime.strftime("%Y-%m-%d"),
+                    "Event": event,
+                    "game": pieces_str}
+            file_path = file_path + "DB：" + self._red_player.name + " vs " + self._blue_player.name + "："
+            file_path = file_path + ("先手胜" if self._current_game.winner == Color.red else "后手胜")
+            file_path = file_path + ".txt"#'''
+
+        f = open(file_path, 'w')
+        f.write(json.dumps(dict))
+        f.close()
+
+        return True
 
 
 class DBError(DBException):

@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from enum import Enum
+from datetime import datetime
 
 
 class Color(Enum):
@@ -15,11 +16,15 @@ class DBException(Exception):
 class _Player:
     def __init__(self, color):
         self._color = color
-        self.score = 0
+        self._score = 0
 
     @property
     def color(self):
         return self._color
+
+    @property
+    def score(self):
+        return self._score
 
 
 class Piece:
@@ -27,6 +32,7 @@ class Piece:
         self._player = player
         self._coordinate = self._coordinate_exchange(user_coordinate)  # 坐标转换，把('b', '4', 'v')转换为(3, 2)
         self._user_coordinate = user_coordinate  # 用户坐标，如('b', '4', 'v')
+        self._datetime = datetime.now()
 
     @property
     def player(self):
@@ -34,7 +40,7 @@ class Piece:
 
     @property
     def color(self):
-        return self._player.color()
+        return self._player.color
 
     @property
     def coordinate(self):
@@ -43,6 +49,16 @@ class Piece:
     @property
     def user_coordinate(self):
         return self._user_coordinate
+
+    @property
+    def datetime(self):
+        return self._datetime
+
+    def __eq__(self, other):
+        if isinstance(other, Piece):
+            return (self.color == other.color and self.coordinate == other.coordinate)
+        else:
+            return False
 
     def _coordinate_exchange(self, coordinate):  # 坐标转换函数
         x = 12 - 2 * int(coordinate[1])
