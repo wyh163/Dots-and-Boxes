@@ -2313,11 +2313,18 @@
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+    <addaction name="separator"/>
+    <addaction name="action_4"/>
+    <addaction name="action_5"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>编辑</string>
     </property>
+    <addaction name="action_6"/>
+    <addaction name="action_7"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -2334,6 +2341,36 @@
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="action">
+   <property name="text">
+    <string>新游戏</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>载入游戏</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>保存游戏</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>导出标准棋谱</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>悔棋</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>恢复</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
