@@ -3,16 +3,14 @@ from dots_and_boxes.dots_and_boxes import DotsAndBoxes, Player, Color
 from dots_and_boxes.main_window import MainWindow
 
 import sys
-from datetime import datetime
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    mainWindow = MainWindow()
-    mainWindow.show()
+    main_window = MainWindow()
+    main_window.show()
     sys.exit(app.exec_())
-    print(datetime.now())
     db = DotsAndBoxes()
     db.red_player = Player.RedPlayer("player1")
     db.blue_player = Player.BluePlayer("player2")

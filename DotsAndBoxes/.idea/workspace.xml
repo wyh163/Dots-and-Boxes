@@ -10,36 +10,38 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/DotsAndBoxes$main.coverage" NAME="main Coverage Results" MODIFIED="1518071722604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/DotsAndBoxes$main.coverage" NAME="main Coverage Results" MODIFIED="1518159338043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/DotsAndBoxes$dots_and_boxes.coverage" NAME="dots_and_boxes Coverage Results" MODIFIED="1516087968682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/dots_and_boxes" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-              <folding />
+            <state relative-caret-position="90">
+              <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+              <folding>
+                <element signature="e#24#93#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_window.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main_window.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/main_window.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="691" column="21" lean-forward="false" selection-start-line="691" selection-start-column="21" selection-end-line="691" selection-end-column="21" />
+            <state relative-caret-position="144">
+              <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QLabel.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtWidgets/QLabel.py">
+      <file leaf-file-name="main_window_controller.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/main_window_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="138" column="17" lean-forward="false" selection-start-line="138" selection-start-column="8" selection-end-line="138" selection-end-column="17" />
+            <state relative-caret-position="180">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -48,7 +50,7 @@
       <file leaf-file-name="dots_and_boxes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2956">
+            <state relative-caret-position="3906">
               <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
               <folding>
                 <element signature="e#24#43#0" expanded="true" />
@@ -107,6 +109,7 @@
       <find>player</find>
       <find>currentPlayerLabel</find>
       <find>Label_13</find>
+      <find>toolBar</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -117,8 +120,9 @@
         <option value="$PROJECT_DIR$/src/dots_and_boxes/game.py" />
         <option value="$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py" />
         <option value="$PROJECT_DIR$/src/dots_and_boxes/MainWindow.py" />
-        <option value="$PROJECT_DIR$/src/main.py" />
         <option value="$PROJECT_DIR$/src/MainWindow.py" />
+        <option value="$PROJECT_DIR$/src/dots_and_boxes/main_window_controller.py" />
+        <option value="$PROJECT_DIR$/src/main.py" />
         <option value="$PROJECT_DIR$/src/dots_and_boxes/main_window.py" />
       </list>
     </option>
@@ -131,9 +135,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="65" />
-    <option name="y" value="38" />
-    <option name="width" value="1295" />
-    <option name="height" value="744" />
+    <option name="y" value="10" />
+    <option name="width" value="1293" />
+    <option name="height" value="736" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -288,14 +292,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="38" width="1297" height="780" extended-state="6" />
+    <frame x="65" y="-4" width="1295" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13899614" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -338,7 +342,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -376,7 +382,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -414,7 +422,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -442,7 +452,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -480,7 +492,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +532,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -546,7 +562,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -574,7 +592,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -602,7 +622,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -630,7 +652,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -684,28 +708,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2956">
-          <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtWidgets/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtWidgets/QMainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -726,18 +732,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/main_window.py">
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="691" column="21" lean-forward="false" selection-start-line="691" selection-start-column="21" selection-end-line="691" selection-end-column="21" />
+        <state relative-caret-position="3906">
+          <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/main_window_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+        <state relative-caret-position="90">
+          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+          <folding>
+            <element signature="e#24#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtWidgets/QMainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="158" column="8" lean-forward="false" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtWidgets/QWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="865" column="44" lean-forward="false" selection-start-line="865" selection-start-column="44" selection-end-line="865" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtCore/Qt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="1105" column="4" lean-forward="false" selection-start-line="1105" selection-start-column="4" selection-end-line="1105" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/main_window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
           <folding />
         </state>
       </provider>

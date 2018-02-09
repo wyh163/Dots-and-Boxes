@@ -12,11 +12,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(731, 582)
+        MainWindow.resize(727, 548)
+        MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint);
+        MainWindow.setFixedSize(MainWindow.width(), MainWindow.height());
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, -7, 711, 511))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(8, 0, 711, 511))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -776,10 +778,10 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 731, 31))
         self.menubar.setObjectName("menubar")
-        self.menu = QtWidgets.QMenu(self.menubar)
-        self.menu.setObjectName("menu")
-        self.menu_2 = QtWidgets.QMenu(self.menubar)
-        self.menu_2.setObjectName("menu_2")
+        self.menu_0 = QtWidgets.QMenu(self.menubar)
+        self.menu_0.setObjectName("menu_0")
+        self.menu_1 = QtWidgets.QMenu(self.menubar)
+        self.menu_1.setObjectName("menu_1")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -799,15 +801,15 @@ class Ui_MainWindow(object):
         self.action_6.setObjectName("action_6")
         self.action_7 = QtWidgets.QAction(MainWindow)
         self.action_7.setObjectName("action_7")
-        self.menu.addAction(self.action)
-        self.menu.addAction(self.action_2)
-        self.menu.addSeparator()
-        self.menu.addAction(self.action_4)
-        self.menu.addAction(self.action_5)
-        self.menu_2.addAction(self.action_6)
-        self.menu_2.addAction(self.action_7)
-        self.menubar.addAction(self.menu.menuAction())
-        self.menubar.addAction(self.menu_2.menuAction())
+        self.menu_0.addAction(self.action)
+        self.menu_0.addAction(self.action_2)
+        self.menu_0.addSeparator()
+        self.menu_0.addAction(self.action_4)
+        self.menu_0.addAction(self.action_5)
+        self.menu_1.addAction(self.action_6)
+        self.menu_1.addAction(self.action_7)
+        self.menubar.addAction(self.menu_0.menuAction())
+        self.menubar.addAction(self.menu_1.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -835,8 +837,8 @@ class Ui_MainWindow(object):
         self.currentStepLabel.setText(_translate("MainWindow", "0"))
         self.currentPlayerLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ff0000;\">•</span></p></body></html>"))
         self.label_16.setText(_translate("MainWindow", "历史: "))
-        self.menu.setTitle(_translate("MainWindow", "文件"))
-        self.menu_2.setTitle(_translate("MainWindow", "编辑"))
+        self.menu_0.setTitle(_translate("MainWindow", "文件"))
+        self.menu_1.setTitle(_translate("MainWindow", "编辑"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.action.setText(_translate("MainWindow", "新游戏"))
         self.action_2.setText(_translate("MainWindow", "载入游戏"))
@@ -850,4 +852,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+
+        self.buttonA1h.clicked.connect(self.test)
+
+    def test(self):
+        print("test")
 
