@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from dots_and_boxes.dots_and_boxes import DotsAndBoxes, Player, Color
-from dots_and_boxes.main_window import MainWindow
+from dots_and_boxes.main_window_controller import MainWindowController
 
 import sys
 from PyQt5.QtWidgets import QApplication
@@ -8,8 +8,10 @@ from PyQt5.QtWidgets import QApplication
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main_window = MainWindow()
-    main_window.show()
+    main_window_controller = MainWindowController()
+    main_window_controller._add_history_cell()
+    main_window_controller.window.show()
+
     sys.exit(app.exec_())
     db = DotsAndBoxes()
     db.red_player = Player.RedPlayer("player1")

@@ -764,9 +764,9 @@ class Ui_MainWindow(object):
         self.label_16 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_16.setObjectName("label_16")
         self.verticalLayout_2.addWidget(self.label_16)
-        self.tableView = QtWidgets.QTableView(self.verticalLayoutWidget)
-        self.tableView.setObjectName("tableView")
-        self.verticalLayout_2.addWidget(self.tableView)
+        self.history_tableView = QtWidgets.QTableView(self.verticalLayoutWidget)
+        self.history_tableView.setObjectName("history_tableView")
+        self.verticalLayout_2.addWidget(self.history_tableView)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.line_2 = QtWidgets.QFrame(self.verticalLayoutWidget)
@@ -816,7 +816,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "点格棋"))
         self.label6.setText(_translate("MainWindow", "6"))
         self.label1.setText(_translate("MainWindow", "1"))
         self.labelD.setText(_translate("MainWindow", "D"))
@@ -849,9 +849,11 @@ class Ui_MainWindow(object):
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, controller, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+
+        self._controller = controller
 
         self.buttonA1h.clicked.connect(self.test)
 
