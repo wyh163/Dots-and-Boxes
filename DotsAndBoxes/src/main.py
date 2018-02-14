@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QApplication
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_window_controller = MainWindowController()
-    main_window_controller._add_history_cell()
     main_window_controller.window.show()
 
     sys.exit(app.exec_())

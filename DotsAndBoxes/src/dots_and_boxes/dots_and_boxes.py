@@ -14,6 +14,10 @@ class DotsAndBoxes:
         self._blue_player = None
 
     @property
+    def current_game(self):
+        return self._current_game
+
+    @property
     def history(self):
         return self._history.copy()
 
