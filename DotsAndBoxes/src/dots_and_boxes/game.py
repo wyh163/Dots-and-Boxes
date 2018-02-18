@@ -16,6 +16,10 @@ class Game:
         self._datetime = datetime.now()
 
     @property
+    def board(self):
+        return self._board
+
+    @property
     def score(self):
         return (self._red_player.score, self._blue_player.score)
 

@@ -63,20 +63,7 @@ class Piece:
     def _coordinate_exchange(self, coordinate):  # 坐标转换函数
         x = 12 - 2 * int(coordinate[1])
 
-        if (coordinate[0] == 'a'):
-            y = 0
-        elif (coordinate[0] == 'b'):
-            y = 2
-        elif (coordinate[0] == 'c'):
-            y = 4
-        elif (coordinate[0] == 'd'):
-            y = 6
-        elif (coordinate[0] == 'e'):
-            y = 8
-        elif (coordinate[0] == 'f'):
-            y = 10
-        else:
-            raise PieceCoordinateError("Wrong piece coordinate.")
+        y = "abcdef".index(coordinate[0]) * 2
 
         if (coordinate[2] == 'v'):
             x = x - 1

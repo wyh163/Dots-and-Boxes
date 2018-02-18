@@ -3,7 +3,7 @@ from .dots_and_boxes import *
 from .main_window import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAbstractItemView, QPushButton
+from PyQt5.QtWidgets import QAbstractItemView, QApplication
 
 class MainWindowController:
     def __init__(self):
@@ -36,7 +36,6 @@ class MainWindowController:
             return
         if (self._dots_and_boxes.current_game.is_end):
             return
-
         self._dots_and_boxes.move(self._dots_and_boxes.current_player.color, coordinate)
         self.update()
 
@@ -45,13 +44,28 @@ class MainWindowController:
         self.update()
 
     def update(self):
+        if (self._dots_and_boxes.current_game == None):
+            self._window.set_current_player_color()
+            return
+        
         self._window.set_current_player_color(self._dots_and_boxes.current_player.color)
-        i = 0
-        for step in self._dots_and_boxes.history:
-            self._history_tableView_model.setItem(i, 0, QStandardItem(str(i+1)))
-            self._history_tableView_model.setItem(i, 1, QStandardItem("红" if step.color == Color.red else "蓝"))
-            self._history_tableView_model.setItem(i, 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
-            self._window.findChild((QPushButton, ), "button"+step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]).setStyleSheet("background-color:"+("#ff0000" if step.color == Color.red else "#0055ff"))
-            i = i + 1
 
+        for x in range(11):
+            for y in range(11):
+                piece = self._dots_and_boxes.current_game.board.pieces[x][y]
+                if (piece == -1):
+                    continue
+                if ((x + y) % 2 == 0):
+                    self._window.set_box((str(x), str(y)), piece)
+                    continue
+                if (piece != 0):
+                    self._window.set_piece_color(piece.user_coordinate, piece.color)
+                else:
+                    self._window.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
+
+        for x in range(len(self._dots_and_boxes.history)):
+            step = self._dots_and_boxes.history[x]
+            self._history_tableView_model.setItem(x, 0, QStandardItem(str(x+1)))
+            self._history_tableView_model.setItem(x, 1, QStandardItem("红" if step.color == Color.red else "蓝"))
+            self._history_tableView_model.setItem(x, 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
 
