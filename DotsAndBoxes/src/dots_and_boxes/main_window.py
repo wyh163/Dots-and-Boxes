@@ -25,35 +25,44 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setObjectName("menubar")
         self.menubar.setGeometry(QtCore.QRect(0, 0, 731, 31))
-        self.action00 = QtWidgets.QAction(MainWindow)
-        self.action00.setObjectName("action00")
-        self.action01 = QtWidgets.QAction(MainWindow)
-        self.action01.setObjectName("action01")
-        self.action02 = QtWidgets.QAction(MainWindow)
-        self.action02.setObjectName("action02")
-        self.action03 = QtWidgets.QAction(MainWindow)
-        self.action03.setObjectName("action03")
-        self.action10 = QtWidgets.QAction(MainWindow)
-        self.action10.setObjectName("action10")
-        self.action11 = QtWidgets.QAction(MainWindow)
-        self.action11.setObjectName("action11")
+        MainWindow.setMenuBar(self.menubar)
         self.menu0 = QtWidgets.QMenu(self.menubar)
         self.menu0.setObjectName("menu0")
+        self.menu0.setTitle("文件")
+        self.action00 = QtWidgets.QAction(MainWindow)
+        self.action00.setObjectName("action00")
+        self.action00.setText("新游戏")
         self.menu0.addAction(self.action00)
+        self.action01 = QtWidgets.QAction(MainWindow)
+        self.action01.setObjectName("action01")
+        self.action01.setText("载入游戏")
         self.menu0.addAction(self.action01)
         self.menu0.addSeparator()
+        self.action02 = QtWidgets.QAction(MainWindow)
+        self.action02.setObjectName("action02")
+        self.action02.setText("保存游戏")
         self.menu0.addAction(self.action02)
+        self.action03 = QtWidgets.QAction(MainWindow)
+        self.action03.setObjectName("action03")
+        self.action03.setText("导出标准棋谱")
         self.menu0.addAction(self.action03)
         self.menubar.addAction(self.menu0.menuAction())
         self.menu1 = QtWidgets.QMenu(self.menubar)
         self.menu1.setObjectName("menu1")
+        self.menu1.setTitle("编辑")
+        self.action10 = QtWidgets.QAction(MainWindow)
+        self.action10.setObjectName("action10")
+        self.action10.setText("悔棋")
         self.menu1.addAction(self.action10)
+        self.action11 = QtWidgets.QAction(MainWindow)
+        self.action11.setObjectName("action11")
+        self.action11.setText("恢复")
         self.menu1.addAction(self.action11)
         self.menubar.addAction(self.menu1.menuAction())
-        MainWindow.setMenuBar(self.menubar)
         # 工具栏
         self.toolBar = QtWidgets.QToolBar(MainWindow)
         self.toolBar.setObjectName("toolBar")
+        self.toolBar.setWindowTitle("工具栏")
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         # 状态栏
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -86,7 +95,7 @@ class Ui_MainWindow(object):
         self.bottomLine.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.topVerticalLayout.addWidget(self.bottomLine)
 
-        # 菜单栏
+        # 工具栏
 
         # 中部区域
         # 棋盘约束
@@ -256,11 +265,17 @@ class Ui_MainWindow(object):
         self.redScoreNumber.setObjectName("redScoreNumber")
         self.redScoreNumber.setMinimumSize(QtCore.QSize(40, 25))
         self.redScoreNumber.setMaximumSize(QtCore.QSize(40, 25))
+        self.redScoreNumber.setDigitCount(2)
+        self.redScoreNumber.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        self.redScoreNumber.setStyleSheet("color: #64ff32; background-color: #303030")
         self.topHalfLayout.addWidget(self.redScoreNumber, 3, 2, 1, 1)
         self.blueScoreNumber = QtWidgets.QLCDNumber(self.topVerticalLayoutWidget)
         self.blueScoreNumber.setObjectName("blueScoreNumber")
         self.blueScoreNumber.setMinimumSize(QtCore.QSize(40, 25))
         self.blueScoreNumber.setMaximumSize(QtCore.QSize(40, 25))
+        self.blueScoreNumber.setDigitCount(2)
+        self.blueScoreNumber.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        self.blueScoreNumber.setStyleSheet("color: #64ff32; background-color: #303030")
         self.topHalfLayout.addWidget(self.blueScoreNumber, 3, 4, 1, 1)
         # 历史信息
         self.historyTextLabel = QtWidgets.QLabel(self.topVerticalLayoutWidget)
@@ -277,15 +292,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        self.menu0.setTitle(_translate("MainWindow", "文件"))
-        self.menu1.setTitle(_translate("MainWindow", "编辑"))
-        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
-        self.action00.setText(_translate("MainWindow", "新游戏"))
-        self.action01.setText(_translate("MainWindow", "载入游戏"))
-        self.action02.setText(_translate("MainWindow", "保存游戏"))
-        self.action03.setText(_translate("MainWindow", "导出标准棋谱"))
-        self.action10.setText(_translate("MainWindow", "悔棋"))
-        self.action11.setText(_translate("MainWindow", "恢复"))
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -341,10 +347,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.currentPlayerLabel.setText("")
 
     def set_red_player_score(self, score):
-        pass
+        self.redScoreNumber.display(score)
 
     def set_blue_player_score(self, score):
-        pass
+        self.blueScoreNumber.display(score)
 
     def set_current_step(self, step):
+        self.currentStepLabel.setText(str(step))
+
+    def set_history_table_view_place(self, percent):
         pass
+

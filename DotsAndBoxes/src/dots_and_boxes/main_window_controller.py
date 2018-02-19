@@ -47,9 +47,12 @@ class MainWindowController:
         if (self._dots_and_boxes.current_game == None):
             self._window.set_current_player_color()
             return
-        
+        # 刷新信息
         self._window.set_current_player_color(self._dots_and_boxes.current_player.color)
-
+        self._window.set_current_step(self._dots_and_boxes.current_step + 1)
+        self._window.set_red_player_score(self._dots_and_boxes.red_player.score)
+        self._window.set_blue_player_score(self._dots_and_boxes.blue_player.score)
+        # 刷新棋盘
         for x in range(11):
             for y in range(11):
                 piece = self._dots_and_boxes.current_game.board.pieces[x][y]
@@ -62,10 +65,11 @@ class MainWindowController:
                     self._window.set_piece_color(piece.user_coordinate, piece.color)
                 else:
                     self._window.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
-        print(self._dots_and_boxes.current_step)
+        # 刷新历史信息
         if (self._dots_and_boxes.current_step != 0):
             step = self._dots_and_boxes.history[self._dots_and_boxes.current_step - 1]
             self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 0, QStandardItem(str(self._dots_and_boxes.current_step)))
             self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 1, QStandardItem("红" if step.color == Color.red else "蓝"))
             self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
+            self._window.historyTableView.scrollToBottom()
 
