@@ -12,20 +12,20 @@ class MainWindowController:
         self._dots_and_boxes.red_player = Player.RedPlayer("player1")
         self._dots_and_boxes.blue_player = Player.BluePlayer("player2")
 
-        self._window.history_tableView.horizontalHeader().setHighlightSections(False)
-        self._window.history_tableView.verticalHeader().setVisible(False)
-        self._window.history_tableView.setEditTriggers (QAbstractItemView.NoEditTriggers)
-        self._window.history_tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self._window.history_tableView.setSelectionMode(QAbstractItemView.SingleSelection)
+        self._window.historyTableView.horizontalHeader().setHighlightSections(False)
+        self._window.historyTableView.verticalHeader().setVisible(False)
+        self._window.historyTableView.setEditTriggers (QAbstractItemView.NoEditTriggers)
+        self._window.historyTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self._window.historyTableView.setSelectionMode(QAbstractItemView.SingleSelection)
         self._history_tableView_model = QStandardItemModel()
-        self._window.history_tableView.setModel(self._history_tableView_model)
+        self._window.historyTableView.setModel(self._history_tableView_model)
 
         self._history_tableView_model.setColumnCount(3)
         self._history_tableView_model.setHorizontalHeaderLabels(["步数", "玩家", "位置"])
         self._history_tableView_model.setHeaderData(0, Qt.Horizontal, "步数")
-        self._window.history_tableView.setColumnWidth(0, 35)
-        self._window.history_tableView.setColumnWidth(1, 35)
-        self._window.history_tableView.setColumnWidth(2, 100)
+        self._window.historyTableView.setColumnWidth(0, 35)
+        self._window.historyTableView.setColumnWidth(1, 35)
+        self._window.historyTableView.setColumnWidth(2, 100)
 
     @property
     def window(self):
@@ -62,10 +62,10 @@ class MainWindowController:
                     self._window.set_piece_color(piece.user_coordinate, piece.color)
                 else:
                     self._window.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
-
-        for x in range(len(self._dots_and_boxes.history)):
-            step = self._dots_and_boxes.history[x]
-            self._history_tableView_model.setItem(x, 0, QStandardItem(str(x+1)))
-            self._history_tableView_model.setItem(x, 1, QStandardItem("红" if step.color == Color.red else "蓝"))
-            self._history_tableView_model.setItem(x, 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
+        print(self._dots_and_boxes.current_step)
+        if (self._dots_and_boxes.current_step != 0):
+            step = self._dots_and_boxes.history[self._dots_and_boxes.current_step - 1]
+            self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 0, QStandardItem(str(self._dots_and_boxes.current_step)))
+            self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 1, QStandardItem("红" if step.color == Color.red else "蓝"))
+            self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
 

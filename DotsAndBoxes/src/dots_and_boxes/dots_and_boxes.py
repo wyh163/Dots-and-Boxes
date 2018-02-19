@@ -59,6 +59,10 @@ class DotsAndBoxes:
     def current_player(self):
         return (self._red_player if self._current_game.current_player_color == Color.red else self._blue_player)
 
+    @property
+    def current_step(self):
+        return self._current_step
+
     def new_game(self):
         if (not self._current_game == None):
             if (not self._current_game.is_end):
