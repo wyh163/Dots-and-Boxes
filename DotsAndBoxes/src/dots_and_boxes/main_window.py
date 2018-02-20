@@ -314,4 +314,5 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.action00.triggered.connect(self._controller.new_game)
         self.action02.triggered.connect(self._controller.end_game)
         self.action10.triggered.connect(self._controller.back)
+        self.action11.triggered.connect(self._controller.forward)
 

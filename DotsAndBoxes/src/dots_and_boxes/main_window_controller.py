@@ -53,6 +53,10 @@ class MainWindowController:
         self._dots_and_boxes.back()
         self.update()
 
+    def forward(self):
+        self._dots_and_boxes.turn_to_step(self._dots_and_boxes.current_step + 1)
+        self.update()
+
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton, ), "button" + coordinate[0] + coordinate[1] + coordinate[2])
         if (color == Color.red):
@@ -107,6 +111,8 @@ class MainWindowController:
             self._window.action00.setEnabled(True)
             self._window.action01.setEnabled(True)
             self._window.action02.setEnabled(False)
+            self._window.action10.setEnabled(False)
+            self._window.action11.setEnabled(False)
 
             self.set_current_player_color()
             self.set_current_step(0)
@@ -135,6 +141,8 @@ class MainWindowController:
         self._window.action00.setEnabled(False)
         self._window.action01.setEnabled(False)
         self._window.action02.setEnabled(True)
+        self._window.action10.setEnabled(self._dots_and_boxes.current_step > 0)
+        self._window.action11.setEnabled(self._dots_and_boxes.current_step < len(self._dots_and_boxes.history))
 
         # 刷新信息
         self.set_current_player_color(self._dots_and_boxes.current_player.color)
@@ -160,7 +168,6 @@ class MainWindowController:
             self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 0, QStandardItem(str(self._dots_and_boxes.history.index(step) + 1)))
             self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 1, QStandardItem("红" if step.color == Color.red else "蓝"))
             self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
-
         self._history_tableView_model.removeRows(len(self._dots_and_boxes.history), self._history_tableView_model.rowCount() - len(self._dots_and_boxes.history))
         self._window.historyTableView.scrollToBottom()
 
