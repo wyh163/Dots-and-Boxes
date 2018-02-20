@@ -46,10 +46,30 @@ class MainWindowController:
         self.update()
 
     def load_game(self):
-        pass
+        fileDialog = QFileDialog()
+        fileDialog.setWindowTitle("载入")
+        fileDialog.setAcceptMode(QFileDialog.AcceptOpen)
+        fileDialog.setFileMode(QFileDialog.AnyFile)
+        fileDialog.setViewMode(QFileDialog.Detail)
+        fileDialog.setDirectory(".")
+        if (fileDialog.exec() == QDialog.Accepted):
+            path = fileDialog.selectedFiles()[0]
+            self._dots_and_boxes.load_from_file(path)
+            self.update()
+        fileDialog.show()
 
     def load_standard_record(self):
-        pass
+        fileDialog = QFileDialog()
+        fileDialog.setWindowTitle("载入")
+        fileDialog.setAcceptMode(QFileDialog.AcceptOpen)
+        fileDialog.setFileMode(QFileDialog.AnyFile)
+        fileDialog.setViewMode(QFileDialog.Detail)
+        fileDialog.setDirectory(".")
+        if (fileDialog.exec() == QDialog.Accepted):
+            path = fileDialog.selectedFiles()[0]
+            self._dots_and_boxes.load_from_file(path, 0)
+            self.update()
+        fileDialog.show()
 
     def end_game(self):
         self._dots_and_boxes.end_game()
@@ -59,25 +79,24 @@ class MainWindowController:
         fileDialog = QFileDialog()
         fileDialog.setWindowTitle("保存为")
         fileDialog.setAcceptMode(QFileDialog.AcceptSave)
-        fileDialog.setFileMode(QFileDialog.Directory)
+        fileDialog.setFileMode(QFileDialog.AnyFile)
         fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory("~")
+        fileDialog.setDirectory(".")
+        fileDialog.selectFile("DotsAndBoxesRecord.dbr")
         if (fileDialog.exec() == QDialog.Accepted):
             path = fileDialog.selectedFiles()[0]
-            print(path)
-            self._dots_and_boxes.save_to_file(path, 0, "")
+            self._dots_and_boxes.save_to_file(path)
         fileDialog.show()
 
     def export_standard_record(self):
         fileDialog = QFileDialog()
-        fileDialog.setWindowTitle("保存为")
+        fileDialog.setWindowTitle("保存到")
         fileDialog.setAcceptMode(QFileDialog.AcceptSave)
         fileDialog.setFileMode(QFileDialog.Directory)
         fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory("~")
+        fileDialog.setDirectory(".")
         if (fileDialog.exec() == QDialog.Accepted):
             path = fileDialog.selectedFiles()[0]
-            print(path)
             self._dots_and_boxes.save_to_file(path + "/", 0, "")
         fileDialog.show()
 
@@ -128,7 +147,10 @@ class MainWindowController:
         self._window.loadGameAction.setEnabled(False)
         self._window.loadStandardRecordAction.setEnabled(False)
         self._window.endGameAction.setEnabled(True)
-        self._window.saveGameAction.setEnabled(not self._dots_and_boxes.current_game == None)
+        if (not self._dots_and_boxes.current_game == None):
+            self._window.saveGameAction.setEnabled(not len(self._dots_and_boxes.history) == 0)
+        else:
+            self._window.saveGameAction.setEnabled(False)
         self._window.exportStandardRecordAction.setEnabled(self._dots_and_boxes.current_game.is_end)
         self._window.backAction.setEnabled(self._dots_and_boxes.current_step > 0)
         self._window.forwardAction.setEnabled(self._dots_and_boxes.current_step < len(self._dots_and_boxes.history))

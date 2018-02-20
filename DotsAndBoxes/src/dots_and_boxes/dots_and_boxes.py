@@ -71,6 +71,9 @@ class DotsAndBoxes:
         if (self._red_player == None or self._blue_player == None):
             raise DBError("Lack of player")
 
+        self._new_game()
+
+    def _new_game(self):
         self._current_game = Game(self._red_player, self._blue_player)
         self._history = []
         self._current_step = 0
@@ -209,7 +212,7 @@ class DotsAndBoxes:
                 else:
                     pieces_str = pieces_str + "b"
                 pieces_str = pieces_str + "("
-                pieces_str = pieces_str + "".join(piece.user_coordinate[0:1])
+                pieces_str = pieces_str + "".join(piece.user_coordinate[0:2])
                 pieces_str = pieces_str + ","
                 pieces_str = pieces_str + "".join(piece.user_coordinate[2])
                 pieces_str = pieces_str + ");"
@@ -228,6 +231,28 @@ class DotsAndBoxes:
         f.close()
 
         return True
+
+    def load_from_file(self, file_path, mode=1):
+        f = open(file_path, 'r')
+        file_data = f.read()
+        f.close()
+        if (mode == 0):  # 非常智障的模式
+            data = json.loads(file_data)
+            self._red_player = Player.RedPlayer(data['R'])
+            self._blue_player = Player.BluePlayer(data['B'])
+            self._new_game()
+            step_str_arr = data['game'].split(';')
+            step_str_arr.pop()
+            for step_str in step_str_arr:
+                self.move_with_str(step_str)
+        else:
+            data = json.loads(file_data)
+            self._red_player = Player.RedPlayer(data['R'])
+            self._blue_player = Player.BluePlayer(data['B'])
+            self._new_game()
+            for step_data in data['pieces']:
+                self.move(Color.red if step_data['player'] == 'r' else Color.blue, (step_data['coordinate'][0], step_data['coordinate'][1], step_data['coordinate'][2]))
+
 
 
 class DBError(DBException):
