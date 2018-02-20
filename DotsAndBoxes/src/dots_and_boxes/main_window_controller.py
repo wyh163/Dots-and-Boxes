@@ -49,6 +49,10 @@ class MainWindowController:
         self._dots_and_boxes.end_game()
         self.update()
 
+    def back(self):
+        self._dots_and_boxes.back()
+        self.update()
+
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton, ), "button" + coordinate[0] + coordinate[1] + coordinate[2])
         if (color == Color.red):
@@ -124,6 +128,8 @@ class MainWindowController:
             for x in range(1, 10, 2):
                 for y in range(1, 10, 2):
                     self.set_box((str(x), str(y)), 0)
+
+            self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
             return
 
         self._window.action00.setEnabled(False)
@@ -149,10 +155,12 @@ class MainWindowController:
                 else:
                     self.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
         # 刷新历史信息
-        if (self._dots_and_boxes.current_step != 0):
-            step = self._dots_and_boxes.history[self._dots_and_boxes.current_step - 1]
-            self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 0, QStandardItem(str(self._dots_and_boxes.current_step)))
-            self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 1, QStandardItem("红" if step.color == Color.red else "蓝"))
-            self._history_tableView_model.setItem(self._dots_and_boxes.current_step - 1, 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
-            self._window.historyTableView.scrollToBottom()
+        # self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
+        for step in self._dots_and_boxes.history:
+            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 0, QStandardItem(str(self._dots_and_boxes.history.index(step) + 1)))
+            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 1, QStandardItem("红" if step.color == Color.red else "蓝"))
+            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
+
+        self._history_tableView_model.removeRows(len(self._dots_and_boxes.history), self._history_tableView_model.rowCount() - len(self._dots_and_boxes.history))
+        self._window.historyTableView.scrollToBottom()
 

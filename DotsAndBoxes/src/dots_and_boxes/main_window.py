@@ -311,6 +311,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 button = self.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
                 button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self._controller.piece_button_is_clicked(c, b))
 
-        self.action00.triggered.connect(lambda: self._controller.new_game())
-        self.action02.triggered.connect(lambda: self._controller.end_game())
+        self.action00.triggered.connect(self._controller.new_game)
+        self.action02.triggered.connect(self._controller.end_game)
+        self.action10.triggered.connect(self._controller.back)
 
