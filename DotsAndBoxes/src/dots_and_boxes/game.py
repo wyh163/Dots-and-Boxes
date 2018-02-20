@@ -9,7 +9,9 @@ class Game:
             raise GameError("Invalid players", red_player, blue_player)
 
         self._red_player = red_player
+        self._red_player._score = 0
         self._blue_player = blue_player
+        self._blue_player._score = 0
         self._current_player = self._red_player
         self._piece_history = PieceHistory()
         self._board = Board()

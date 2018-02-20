@@ -37,15 +37,19 @@ class Ui_MainWindow(object):
         self.action01.setObjectName("action01")
         self.action01.setText("载入游戏")
         self.menu0.addAction(self.action01)
-        self.menu0.addSeparator()
         self.action02 = QtWidgets.QAction(MainWindow)
         self.action02.setObjectName("action02")
-        self.action02.setText("保存游戏")
+        self.action02.setText("结束游戏")
         self.menu0.addAction(self.action02)
+        self.menu0.addSeparator()
         self.action03 = QtWidgets.QAction(MainWindow)
         self.action03.setObjectName("action03")
-        self.action03.setText("导出标准棋谱")
+        self.action03.setText("保存游戏")
         self.menu0.addAction(self.action03)
+        self.action04 = QtWidgets.QAction(MainWindow)
+        self.action04.setObjectName("action04")
+        self.action04.setText("导出标准棋谱")
+        self.menu0.addAction(self.action04)
         self.menubar.addAction(self.menu0.menuAction())
         self.menu1 = QtWidgets.QMenu(self.menubar)
         self.menu1.setObjectName("menu1")
@@ -157,8 +161,6 @@ class Ui_MainWindow(object):
                 button.setMinimumSize(QtCore.QSize(10, 80))
                 button.setMaximumSize(QtCore.QSize(10, 80))
                 button.setObjectName("button" + x + str(y) + "v")
-                button.setStyleSheet("background-color:#ffffff")
-                button.setEnabled(False)
                 self.boardLayout.addWidget(button, 12-y*2, 1+"abcdef".index(x)*2, 1, 1)
         for x in "abcde":
             for y in range(1, 7):
@@ -166,8 +168,6 @@ class Ui_MainWindow(object):
                 button.setMinimumSize(QtCore.QSize(80, 10))
                 button.setMaximumSize(QtCore.QSize(80, 10))
                 button.setObjectName("button" + x + str(y) + "h")
-                button.setStyleSheet("background-color:#ffffff")
-                button.setEnabled(False)
                 self.boardLayout.addWidget(button, 13-y*2, 2+"abcde".index(x)*2, 1, 1)
         # 格
         for x in range(2, 11, 2):
@@ -181,6 +181,7 @@ class Ui_MainWindow(object):
                 boxLabel.setAlignment(QtCore.Qt.AlignCenter)
                 boxLabel.setObjectName("boxLabel" + str(x-1) + str(y-1))
                 self.boardLayout.addWidget(boxLabel, x, y, 1, 1)
+        # 点
         for x in range(1, 12, 2):
             for y in range(1, 12, 2):
                 pointLabel = QtWidgets.QLabel(self.topVerticalLayoutWidget)
@@ -309,52 +310,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             for y in range(1, 7):
                 button = self.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
                 button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self._controller.piece_button_is_clicked(c, b))
+
         self.action00.triggered.connect(lambda: self._controller.new_game())
-
-    def set_piece_color(self, coordinate, color=None):
-        piece = self.findChild((QtWidgets.QPushButton, ), "button" + coordinate[0] + coordinate[1] + coordinate[2])
-        if (color == Color.red):
-            piece.setStyleSheet("background-color:#ff0000")
-            piece.setEnabled(False)
-            return
-        if (color == Color.blue):
-            piece.setStyleSheet("background-color:#0055ff")
-            piece.setEnabled(False)
-            return
-        piece.setStyleSheet("background-color:#ffffff")
-        piece.setEnabled(True)
-
-    def set_box(self, coordinate, info=0):
-        box = self.findChild((QtWidgets.QLabel,), "boxLabel" + coordinate[0] + coordinate[1])
-        if (info == 0):
-            box.setStyleSheet("background-color:#ffffff")
-        else:
-            player = info[0]
-            num = info[1]
-            if (player.color == Color.red):
-                box.setStyleSheet("background-color:#ff0000")
-            else:
-                box.setStyleSheet("background-color:#0055ff")
-            box.setText("<html><head/><body><p><span style=\" color:#ffffff;\">" + str(num) + "</span></p></body></html>")
-
-    def set_current_player_color(self, color=None):
-        if (color == Color.red):
-            self.currentPlayerLabel.setText("<html><head/><body><p><span style=\" color:#ff0000;\">•</span></p></body></html>")
-            return
-        if (color == Color.blue):
-            self.currentPlayerLabel.setText("<html><head/><body><p><span style=\" color:#0055ff;\">•</span></p></body></html>")
-            return
-        self.currentPlayerLabel.setText("")
-
-    def set_red_player_score(self, score):
-        self.redScoreNumber.display(score)
-
-    def set_blue_player_score(self, score):
-        self.blueScoreNumber.display(score)
-
-    def set_current_step(self, step):
-        self.currentStepLabel.setText(str(step))
-
-    def set_history_table_view_place(self, percent):
-        pass
+        self.action02.triggered.connect(lambda: self._controller.end_game())
 
