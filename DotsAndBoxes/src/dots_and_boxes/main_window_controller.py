@@ -3,7 +3,7 @@ from .dots_and_boxes import *
 from .main_window import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog
+from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog, QMessageBox
 
 class MainWindowController:
     def __init__(self):
@@ -32,14 +32,6 @@ class MainWindowController:
     @property
     def window(self):
         return self._window
-
-    def piece_button_is_clicked(self, coordinate, sender):
-        if (self._dots_and_boxes.current_game == None):
-            return
-        if (self._dots_and_boxes.current_game.is_end):
-            return
-        self._dots_and_boxes.move(self._dots_and_boxes.current_player.color, coordinate)
-        self.update()
 
     def new_game(self):
         self._dots_and_boxes.new_game()
@@ -99,6 +91,18 @@ class MainWindowController:
             path = fileDialog.selectedFiles()[0]
             self._dots_and_boxes.save_to_file(path + "/", 0, "")
         fileDialog.show()
+
+    def piece_button_is_clicked(self, coordinate, sender):
+        if (self._dots_and_boxes.current_game == None):
+            return
+        if (self._dots_and_boxes.current_game.is_end):
+            return
+        self._dots_and_boxes.move(self._dots_and_boxes.current_player.color, coordinate)
+        self.update()
+        if (self._dots_and_boxes.current_game.is_end):
+            msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
+            msgBox.show()
+            print("asd")
 
     def back(self):
         self._dots_and_boxes.back()

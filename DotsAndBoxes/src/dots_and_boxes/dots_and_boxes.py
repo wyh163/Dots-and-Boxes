@@ -254,7 +254,6 @@ class DotsAndBoxes:
                 self.move(Color.red if step_data['player'] == 'r' else Color.blue, (step_data['coordinate'][0], step_data['coordinate'][1], step_data['coordinate'][2]))
 
 
-
 class DBError(DBException):
     def __init__(self, *args, **kwargs):
         super(DBError, self).__init__(args, kwargs)
