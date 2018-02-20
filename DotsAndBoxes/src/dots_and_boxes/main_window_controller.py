@@ -3,7 +3,7 @@ from .dots_and_boxes import *
 from .main_window import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAbstractItemView, QApplication
+from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog
 
 class MainWindowController:
     def __init__(self):
@@ -45,9 +45,41 @@ class MainWindowController:
         self._dots_and_boxes.new_game()
         self.update()
 
+    def load_game(self):
+        pass
+
+    def load_standard_record(self):
+        pass
+
     def end_game(self):
         self._dots_and_boxes.end_game()
         self.update()
+
+    def save_game(self):
+        fileDialog = QFileDialog()
+        fileDialog.setWindowTitle("保存为")
+        fileDialog.setAcceptMode(QFileDialog.AcceptSave)
+        fileDialog.setFileMode(QFileDialog.Directory)
+        fileDialog.setViewMode(QFileDialog.Detail)
+        fileDialog.setDirectory("~")
+        if (fileDialog.exec() == QDialog.Accepted):
+            path = fileDialog.selectedFiles()[0]
+            print(path)
+            self._dots_and_boxes.save_to_file(path, 0, "")
+        fileDialog.show()
+
+    def export_standard_record(self):
+        fileDialog = QFileDialog()
+        fileDialog.setWindowTitle("保存为")
+        fileDialog.setAcceptMode(QFileDialog.AcceptSave)
+        fileDialog.setFileMode(QFileDialog.Directory)
+        fileDialog.setViewMode(QFileDialog.Detail)
+        fileDialog.setDirectory("~")
+        if (fileDialog.exec() == QDialog.Accepted):
+            path = fileDialog.selectedFiles()[0]
+            print(path)
+            self._dots_and_boxes.save_to_file(path + "/", 0, "")
+        fileDialog.show()
 
     def back(self):
         self._dots_and_boxes.back()
@@ -56,6 +88,77 @@ class MainWindowController:
     def forward(self):
         self._dots_and_boxes.turn_to_step(self._dots_and_boxes.current_step + 1)
         self.update()
+
+    def update(self):
+        if (self._dots_and_boxes.current_game == None):
+            self._window.newGameAction.setEnabled(True)
+            self._window.loadGameAction.setEnabled(True)
+            self._window.loadStandardRecordAction.setEnabled(True)
+            self._window.endGameAction.setEnabled(False)
+            self._window.saveGameAction.setEnabled(False)
+            self._window.exportStandardRecordAction.setEnabled(False)
+            self._window.backAction.setEnabled(False)
+            self._window.forwardAction.setEnabled(False)
+
+            self.set_current_player_color()
+            self.set_current_step(0)
+            self.set_red_player_score(0)
+            self.set_blue_player_score(0)
+
+            # 棋子
+            for x in "abcdef":
+                for y in range(1, 6):
+                    piece = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "v")
+                    piece.setStyleSheet("background-color:#ffffff")
+                    piece.setEnabled(False)
+            for x in "abcde":
+                for y in range(1, 7):
+                    piece = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "h")
+                    piece.setStyleSheet("background-color:#ffffff")
+                    piece.setEnabled(False)
+            # 格
+            for x in range(1, 10, 2):
+                for y in range(1, 10, 2):
+                    self.set_box((str(x), str(y)), 0)
+
+            self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
+            return
+
+        self._window.newGameAction.setEnabled(False)
+        self._window.loadGameAction.setEnabled(False)
+        self._window.loadStandardRecordAction.setEnabled(False)
+        self._window.endGameAction.setEnabled(True)
+        self._window.saveGameAction.setEnabled(not self._dots_and_boxes.current_game == None)
+        self._window.exportStandardRecordAction.setEnabled(self._dots_and_boxes.current_game.is_end)
+        self._window.backAction.setEnabled(self._dots_and_boxes.current_step > 0)
+        self._window.forwardAction.setEnabled(self._dots_and_boxes.current_step < len(self._dots_and_boxes.history))
+
+        # 刷新信息
+        self.set_current_player_color(self._dots_and_boxes.current_player.color)
+        self.set_current_step(self._dots_and_boxes.current_step + 1)
+        self.set_red_player_score(self._dots_and_boxes.red_player.score)
+        self.set_blue_player_score(self._dots_and_boxes.blue_player.score)
+        # 刷新棋盘
+        for x in range(11):
+            for y in range(11):
+                piece = self._dots_and_boxes.current_game.board.pieces[x][y]
+                if (piece == -1):
+                    continue
+                if ((x + y) % 2 == 0):
+                    self.set_box((str(x), str(y)), piece)
+                    continue
+                if (piece != 0):
+                    self.set_piece_color(piece.user_coordinate, piece.color)
+                else:
+                    self.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
+        # 刷新历史信息
+        # self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
+        for step in self._dots_and_boxes.history:
+            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 0, QStandardItem(str(self._dots_and_boxes.history.index(step) + 1)))
+            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 1, QStandardItem("红" if step.color == Color.red else "蓝"))
+            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
+        self._history_tableView_model.removeRows(len(self._dots_and_boxes.history), self._history_tableView_model.rowCount() - len(self._dots_and_boxes.history))
+        self._window.historyTableView.scrollToBottom()
 
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton, ), "button" + coordinate[0] + coordinate[1] + coordinate[2])
@@ -105,69 +208,4 @@ class MainWindowController:
 
     def set_history_table_view_place(self, percent):
         pass
-
-    def update(self):
-        if (self._dots_and_boxes.current_game == None):
-            self._window.action00.setEnabled(True)
-            self._window.action01.setEnabled(True)
-            self._window.action02.setEnabled(False)
-            self._window.action10.setEnabled(False)
-            self._window.action11.setEnabled(False)
-
-            self.set_current_player_color()
-            self.set_current_step(0)
-            self.set_red_player_score(0)
-            self.set_blue_player_score(0)
-
-            # 棋子
-            for x in "abcdef":
-                for y in range(1, 6):
-                    piece = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "v")
-                    piece.setStyleSheet("background-color:#ffffff")
-                    piece.setEnabled(False)
-            for x in "abcde":
-                for y in range(1, 7):
-                    piece = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "h")
-                    piece.setStyleSheet("background-color:#ffffff")
-                    piece.setEnabled(False)
-            # 格
-            for x in range(1, 10, 2):
-                for y in range(1, 10, 2):
-                    self.set_box((str(x), str(y)), 0)
-
-            self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
-            return
-
-        self._window.action00.setEnabled(False)
-        self._window.action01.setEnabled(False)
-        self._window.action02.setEnabled(True)
-        self._window.action10.setEnabled(self._dots_and_boxes.current_step > 0)
-        self._window.action11.setEnabled(self._dots_and_boxes.current_step < len(self._dots_and_boxes.history))
-
-        # 刷新信息
-        self.set_current_player_color(self._dots_and_boxes.current_player.color)
-        self.set_current_step(self._dots_and_boxes.current_step + 1)
-        self.set_red_player_score(self._dots_and_boxes.red_player.score)
-        self.set_blue_player_score(self._dots_and_boxes.blue_player.score)
-        # 刷新棋盘
-        for x in range(11):
-            for y in range(11):
-                piece = self._dots_and_boxes.current_game.board.pieces[x][y]
-                if (piece == -1):
-                    continue
-                if ((x + y) % 2 == 0):
-                    self.set_box((str(x), str(y)), piece)
-                    continue
-                if (piece != 0):
-                    self.set_piece_color(piece.user_coordinate, piece.color)
-                else:
-                    self.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
-        # 刷新历史信息
-        # self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
-        for step in self._dots_and_boxes.history:
-            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 0, QStandardItem(str(self._dots_and_boxes.history.index(step) + 1)))
-            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 1, QStandardItem("红" if step.color == Color.red else "蓝"))
-            self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
-        self._history_tableView_model.removeRows(len(self._dots_and_boxes.history), self._history_tableView_model.rowCount() - len(self._dots_and_boxes.history))
-        self._window.historyTableView.scrollToBottom()
 

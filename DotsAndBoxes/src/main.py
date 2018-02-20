@@ -7,11 +7,12 @@ from PyQt5.QtWidgets import QApplication
 
 
 if __name__ == '__main__':
+    # '''
     app = QApplication(sys.argv)
     main_window_controller = MainWindowController()
     main_window_controller.window.show()
-
     sys.exit(app.exec_())
+    '''
     db = DotsAndBoxes()
     db.red_player = Player.RedPlayer("player1")
     db.blue_player = Player.BluePlayer("player2")
