@@ -3,20 +3,19 @@ from .dots_and_boxes import *
 from .main_window import *
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog, QMessageBox
+from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit
 
 class MainWindowController:
     def __init__(self):
         self._window = MainWindow(self)
-        self._dots_and_boxes = DotsAndBoxes()
-        self._dots_and_boxes.red_player = Player.RedPlayer("player1")
-        self._dots_and_boxes.blue_player = Player.BluePlayer("player2")
 
         self._window.historyTableView.horizontalHeader().setHighlightSections(False)
         self._window.historyTableView.verticalHeader().setVisible(False)
         self._window.historyTableView.setEditTriggers (QAbstractItemView.NoEditTriggers)
         self._window.historyTableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self._window.historyTableView.setSelectionMode(QAbstractItemView.SingleSelection)
+        # 关键历史信息表的双击事件为转到特定步
+        self._window.historyTableView.doubleClicked.connect(lambda index:self.turn_to_step(index.row() + 1))
         self._history_tableView_model = QStandardItemModel()
         self._window.historyTableView.setModel(self._history_tableView_model)
 
@@ -27,6 +26,7 @@ class MainWindowController:
         self._window.historyTableView.setColumnWidth(1, 35)
         self._window.historyTableView.setColumnWidth(2, 100)
 
+        self._dots_and_boxes = DotsAndBoxes()
         self.update()
 
     @property
@@ -34,7 +34,11 @@ class MainWindowController:
         return self._window
 
     def new_game(self):
-        self._dots_and_boxes.new_game()
+        try:
+            self._dots_and_boxes.new_game()
+        except DBError as e:
+            msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
+            msgBox.show()
         self.update()
 
     def load_game(self):
@@ -46,20 +50,12 @@ class MainWindowController:
         fileDialog.setDirectory(".")
         if (fileDialog.exec() == QDialog.Accepted):
             path = fileDialog.selectedFiles()[0]
-            self._dots_and_boxes.load_from_file(path)
-            self.update()
-        fileDialog.show()
-
-    def load_standard_record(self):
-        fileDialog = QFileDialog()
-        fileDialog.setWindowTitle("载入")
-        fileDialog.setAcceptMode(QFileDialog.AcceptOpen)
-        fileDialog.setFileMode(QFileDialog.AnyFile)
-        fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory(".")
-        if (fileDialog.exec() == QDialog.Accepted):
-            path = fileDialog.selectedFiles()[0]
-            self._dots_and_boxes.load_from_file(path, 0)
+            try:
+                self._dots_and_boxes.load_from_file(path)
+            except Exception as e:
+                msgBox = QMessageBox(QMessageBox.Warning, "异常", "载入错误！\n请检查选择的文件是否正确。\n载入大学生计算机博弈大赛点格棋标准棋谱文件，请选择 ->工具 ->载入标准棋谱。", QMessageBox.Ok, self._window)
+                msgBox.show()
+                self._dots_and_boxes = DotsAndBoxes()
             self.update()
         fileDialog.show()
 
@@ -80,7 +76,27 @@ class MainWindowController:
             self._dots_and_boxes.save_to_file(path)
         fileDialog.show()
 
+    def load_standard_record(self):
+        fileDialog = QFileDialog()
+        fileDialog.setWindowTitle("载入")
+        fileDialog.setAcceptMode(QFileDialog.AcceptOpen)
+        fileDialog.setFileMode(QFileDialog.AnyFile)
+        fileDialog.setViewMode(QFileDialog.Detail)
+        fileDialog.setDirectory(".")
+        if (fileDialog.exec() == QDialog.Accepted):
+            path = fileDialog.selectedFiles()[0]
+            try:
+                self._dots_and_boxes.load_from_file(path, 0)
+            except Exception as e:
+                msgBox = QMessageBox(QMessageBox.Warning, "异常", "载入错误！\n请检查文件是否符合大学生计算机博弈大赛点格棋标准棋谱格式。", QMessageBox.Ok, self._window)
+                msgBox.show()
+                self._dots_and_boxes = DotsAndBoxes()
+            self.update()
+        fileDialog.show()
+
     def export_standard_record(self):
+        event, ok = QInputDialog.getText(self._window, "比赛信息", "请输入比赛名称:", QLineEdit.Normal, "大学生计算机博弈大赛")
+
         fileDialog = QFileDialog()
         fileDialog.setWindowTitle("保存到")
         fileDialog.setAcceptMode(QFileDialog.AcceptSave)
@@ -89,8 +105,24 @@ class MainWindowController:
         fileDialog.setDirectory(".")
         if (fileDialog.exec() == QDialog.Accepted):
             path = fileDialog.selectedFiles()[0]
-            self._dots_and_boxes.save_to_file(path + "/", 0, "")
+            self._dots_and_boxes.save_to_file(path + "/", 0, event)
         fileDialog.show()
+
+    def set_red_player(self):
+        red_player_name, ok = QInputDialog.getText(self._window, "设定红方玩家", "请输入红方玩家名称:", QLineEdit.Normal, "RedPlayer")
+        try:
+            self._dots_and_boxes.red_player = Player.RedPlayer(red_player_name)
+        except DBError as e:
+            msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
+            msgBox.show()
+
+    def set_blue_player(self):
+        blue_player_name, ok = QInputDialog.getText(self._window, "设定蓝方玩家", "请输入蓝方玩家名称:", QLineEdit.Normal, "BluePlayer")
+        try:
+            self._dots_and_boxes.blue_player = Player.BluePlayer(blue_player_name)
+        except DBError as e:
+            msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
+            msgBox.show()
 
     def piece_button_is_clicked(self, coordinate, sender):
         if (self._dots_and_boxes.current_game == None):
@@ -102,7 +134,6 @@ class MainWindowController:
         if (self._dots_and_boxes.current_game.is_end):
             msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
             msgBox.show()
-            print("asd")
 
     def back(self):
         self._dots_and_boxes.back()
@@ -110,6 +141,12 @@ class MainWindowController:
 
     def forward(self):
         self._dots_and_boxes.turn_to_step(self._dots_and_boxes.current_step + 1)
+        self.update()
+
+    def turn_to_step(self, step_num):
+        if (step_num == self._dots_and_boxes.current_step):
+            return
+        self._dots_and_boxes.turn_to_step(step_num)
         self.update()
 
     def update(self):
@@ -161,7 +198,7 @@ class MainWindowController:
 
         # 刷新信息
         self.set_current_player_color(self._dots_and_boxes.current_player.color)
-        self.set_current_step(self._dots_and_boxes.current_step + 1)
+        self.set_current_step(self._dots_and_boxes.current_step)
         self.set_red_player_score(self._dots_and_boxes.red_player.score)
         self.set_blue_player_score(self._dots_and_boxes.blue_player.score)
         # 刷新棋盘
@@ -177,26 +214,33 @@ class MainWindowController:
                     self.set_piece_color(piece.user_coordinate, piece.color)
                 else:
                     self.set_piece_color(("abcdef"[int(y/2)], str(int((12-x)/2)), "h" if (x % 2 == 0) else "v"))
+        # 当前步高亮
+        if (not self._dots_and_boxes.current_step == 0):
+            coordinate = self._dots_and_boxes.history[self._dots_and_boxes.current_step - 1].user_coordinate
+            piece_button = self._window.findChild((QtWidgets.QPushButton,), "button" + coordinate[0] + coordinate[1] + coordinate[2])
+            piece_button.setText("•")
         # 刷新历史信息
-        # self._history_tableView_model.removeRows(0, self._history_tableView_model.rowCount())
         for step in self._dots_and_boxes.history:
             self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 0, QStandardItem(str(self._dots_and_boxes.history.index(step) + 1)))
             self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 1, QStandardItem("红" if step.color == Color.red else "蓝"))
             self._history_tableView_model.setItem(self._dots_and_boxes.history.index(step), 2, QStandardItem(step.user_coordinate[0]+step.user_coordinate[1]+step.user_coordinate[2]))
+            self._history_tableView_model.item(self._dots_and_boxes.history.index(step), 0).setTextAlignment(Qt.AlignCenter)
+            self._history_tableView_model.item(self._dots_and_boxes.history.index(step), 1).setTextAlignment(Qt.AlignCenter)
         self._history_tableView_model.removeRows(len(self._dots_and_boxes.history), self._history_tableView_model.rowCount() - len(self._dots_and_boxes.history))
         self._window.historyTableView.scrollToBottom()
 
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton, ), "button" + coordinate[0] + coordinate[1] + coordinate[2])
+        piece.setText("")
         if (color == Color.red):
-            piece.setStyleSheet("background-color:#ff0000")
+            piece.setStyleSheet("color: #ffffff; background-color:#ff0000")
             piece.setEnabled(False)
             return
         if (color == Color.blue):
-            piece.setStyleSheet("background-color:#0055ff")
+            piece.setStyleSheet("color: #ffffff; background-color:#0055ff")
             piece.setEnabled(False)
             return
-        piece.setStyleSheet("background-color:#ffffff")
+        piece.setStyleSheet("color: #ffffff; background-color:#ffffff")
         piece.setEnabled(True)
 
     def set_box(self, coordinate, info=0):

@@ -11,6 +11,8 @@ class Color(Enum):
 class DBException(Exception):
     def __init__(self, *args, **kwargs):
         super(DBException, self).__init__(args, kwargs)
+        if (len(args[0]) > 0):
+            self.info = args[0][0]
 
 
 class _Player:
