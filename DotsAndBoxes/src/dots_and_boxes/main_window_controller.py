@@ -149,6 +149,9 @@ class MainWindowController:
         self._dots_and_boxes.turn_to_step(step_num)
         self.update()
 
+    def _turn_to_end(self):
+        self.turn_to_step(len(self._dots_and_boxes.history))
+
     def update(self):
         if (self._dots_and_boxes.current_game == None):
             self._window.newGameAction.setEnabled(True)
@@ -159,6 +162,8 @@ class MainWindowController:
             self._window.exportStandardRecordAction.setEnabled(False)
             self._window.backAction.setEnabled(False)
             self._window.forwardAction.setEnabled(False)
+            self._window._turnToStartAction.setEnabled(False)
+            self._window._turnToEndAction.setEnabled(False)
 
             self.set_current_player_color()
             self.set_current_step(0)
@@ -197,6 +202,8 @@ class MainWindowController:
         self._window.exportStandardRecordAction.setEnabled(self._dots_and_boxes.current_game.is_end)
         self._window.backAction.setEnabled(self._dots_and_boxes.current_step > 0)
         self._window.forwardAction.setEnabled(self._dots_and_boxes.current_step < len(self._dots_and_boxes.history))
+        self._window._turnToStartAction.setEnabled(True)
+        self._window._turnToEndAction.setEnabled(True)
 
         # 刷新信息
         self.set_current_player_color(self._dots_and_boxes.current_player.color)
