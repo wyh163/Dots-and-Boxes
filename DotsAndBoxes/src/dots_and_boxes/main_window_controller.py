@@ -168,14 +168,16 @@ class MainWindowController:
             # 棋子
             for x in "abcdef":
                 for y in range(1, 6):
-                    piece = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "v")
-                    piece.setStyleSheet("background-color:#ffffff")
-                    piece.setEnabled(False)
+                    piece_button = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "v")
+                    piece_button.setStyleSheet("background-color:#ffffff")
+                    piece_button.setText("")
+                    piece_button.setEnabled(False)
             for x in "abcde":
                 for y in range(1, 7):
-                    piece = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "h")
-                    piece.setStyleSheet("background-color:#ffffff")
-                    piece.setEnabled(False)
+                    piece_button = self._window.findChild((QtWidgets.QPushButton,), "button" + x + str(y) + "h")
+                    piece_button.setStyleSheet("background-color:#ffffff")
+                    piece_button.setText("")
+                    piece_button.setEnabled(False)
             # 格
             for x in range(1, 10, 2):
                 for y in range(1, 10, 2):
