@@ -61,6 +61,7 @@ class DotsAndBoxes:
 
     @property
     def current_step(self):
+        # int 返回当前步数
         return self._current_step
 
     def new_game(self):
