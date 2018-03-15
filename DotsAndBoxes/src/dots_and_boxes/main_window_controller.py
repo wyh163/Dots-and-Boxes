@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from .dots_and_boxes import *
-from .main_window import *
+import sys
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit, QAbstractItemView
+from .dots_and_boxes import *
+from .main_window import *
 
 
 class MainWindowController:
@@ -246,6 +247,11 @@ class MainWindowController:
             self._window.historyTableView.scrollToBottom()
         else:
             self._window.historyTableView.scrollTo(self._history_tableView_model.index(self._dots_and_boxes.current_step - 1, 0), QAbstractItemView.PositionAtCenter)
+        # 修复win平台每次刷新后列宽异常的bug，原因未知
+        if (not sys.platform == "linux"):
+            self._window.historyTableView.setColumnWidth(0, 35)
+            self._window.historyTableView.setColumnWidth(1, 35)
+            self._window.historyTableView.setColumnWidth(2, 100)
 
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton,), "button" + coordinate[0] + coordinate[1] + coordinate[2])

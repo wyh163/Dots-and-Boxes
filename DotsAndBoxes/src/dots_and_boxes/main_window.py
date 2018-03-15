@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainWindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.10
-#
-# WARNING! All changes made in this file will be lost!
-
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .model import *
 
@@ -14,9 +9,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowTitle("点格棋")
-        MainWindow.resize(727, 548)
-        MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint);
-        MainWindow.setFixedSize(MainWindow.width(), MainWindow.height());
+        if (sys.platform == "linux"):
+            MainWindow.resize(727, 548)
+        else:
+            MainWindow.resize(727, 568)
+        MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+        MainWindow.setFixedSize(MainWindow.width(), MainWindow.height())
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -246,8 +244,12 @@ class Ui_MainWindow(object):
         font.setKerning(False)
         self.currentPlayerLabel.setFont(font)
         self.currentPlayerLabel.setAutoFillBackground(False)
-        self.currentPlayerLabel.setIndent(35)
-        self.currentPlayerLabel.setMargin(-30)
+        if (sys.platform == "linux"):
+            self.currentPlayerLabel.setIndent(35)
+            self.currentPlayerLabel.setMargin(-30)
+        else:
+            self.currentPlayerLabel.setFixedHeight(40)
+            self.currentPlayerLabel.setMargin(-7)
         self.topHalfLayout.addWidget(self.currentPlayerLabel, 0, 3, 1, 3)
         # 当前步数
         self.currentStepTextLabel = QtWidgets.QLabel(self.topVerticalLayoutWidget)
@@ -284,8 +286,12 @@ class Ui_MainWindow(object):
         self.redScoreTextLabel.setFont(font38)
         self.redScoreTextLabel.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.redScoreTextLabel.setText("<html><head/><body><p><span style=\" color:#ff0000;\">•</span></p></body></html>")
-        self.redScoreTextLabel.setIndent(20)
-        self.redScoreTextLabel.setMargin(-20)
+        if (sys.platform == "linux"):
+            self.redScoreTextLabel.setIndent(17)
+            self.redScoreTextLabel.setMargin(-16)
+        else:
+            self.redScoreTextLabel.setIndent(7)
+            self.redScoreTextLabel.setMargin(-9)
         self.topHalfLayout.addWidget(self.redScoreTextLabel, 3, 1, 1, 1)
         self.blueScoreTextLabel = QtWidgets.QLabel(self.topVerticalLayoutWidget)
         self.blueScoreTextLabel.setObjectName("blueScoreTextLabel")
@@ -294,8 +300,12 @@ class Ui_MainWindow(object):
         self.blueScoreTextLabel.setFont(font38)
         self.blueScoreTextLabel.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.blueScoreTextLabel.setText("<html><head/><body><p><span style=\" color:#0055ff;\">•</span></p></body></html>")
-        self.blueScoreTextLabel.setIndent(20)
-        self.blueScoreTextLabel.setMargin(-20)
+        if (sys.platform == "linux"):
+            self.blueScoreTextLabel.setIndent(17)
+            self.blueScoreTextLabel.setMargin(-16)
+        else:
+            self.blueScoreTextLabel.setIndent(7)
+            self.blueScoreTextLabel.setMargin(-9)
         self.topHalfLayout.addWidget(self.blueScoreTextLabel, 3, 3, 1, 1)
         self.redScoreNumber = QtWidgets.QLCDNumber(self.topVerticalLayoutWidget)
         self.redScoreNumber.setObjectName("redScoreNumber")
