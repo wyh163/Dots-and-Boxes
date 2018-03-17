@@ -225,11 +225,10 @@ class MainWindowController:
             self._window.historyTableView.scrollToBottom()
         else:
             self._window.historyTableView.scrollTo(self._history_tableView_model.index(self._dots_and_boxes.current_step - 1, 0), QAbstractItemView.PositionAtCenter)
-        # 修复win平台每次刷新后列宽异常的bug，原因未知
-        if (not sys.platform == "linux"):
-            self._window.historyTableView.setColumnWidth(0, 35)
-            self._window.historyTableView.setColumnWidth(1, 35)
-            self._window.historyTableView.setColumnWidth(2, 100)
+        # 修复每次刷新后列宽异常的bug，原因未知
+        self._window.historyTableView.setColumnWidth(0, 35)
+        self._window.historyTableView.setColumnWidth(1, 35)
+        self._window.historyTableView.setColumnWidth(2, 100)
 
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton,), "button" + coordinate[0] + coordinate[1] + coordinate[2])
