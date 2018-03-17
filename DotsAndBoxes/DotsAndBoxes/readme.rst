@@ -1,4 +1,6 @@
-# Dots-and-Boxes
+Dots-and-Boxes
+==============
+
 点格棋
 
 本软件是一个点格棋博弈软件，可用于人人对战，未来扩展AI通讯接口后，支持加载AI实现人机对战和机机对战功能。
@@ -8,12 +10,8 @@
 
 程序使用py3实现点格棋对弈基础功能，并使用pyqt5构建了人机交互界面。
 
-安装方法
-pip install DotsAndBoxes
+安装方法 pip install DotsAndBoxes
 
-运行环境要求：
-Python3
+运行环境要求： Python3
 
-UI界面适配
-Windows 10
-Ubuntu Desktop 1604
+UI界面适配 Windows 10 Ubuntu Desktop 1604
