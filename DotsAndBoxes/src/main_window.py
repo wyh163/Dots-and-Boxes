@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from .dots_and_boxes.model import *
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .model import *
 
 
 class Ui_MainWindow(object):
@@ -264,6 +264,8 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.currentStepLabel.setFont(font)
         self.currentStepLabel.setText("0")
+        if (not sys.platform == "linux"):
+            self.currentStepLabel.setFixedHeight(40)
         self.topHalfLayout.addWidget(self.currentStepLabel, 1, 3, 1, 3)
         # 比分
         scoreSpacerItem0 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)

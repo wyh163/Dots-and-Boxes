@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+from .dots_and_boxes.dots_and_boxes import *
+from .main_window import *
 import sys
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAbstractItemView, QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit, QAbstractItemView
-from .dots_and_boxes import *
-from .main_window import *
+from PyQt5.QtCore import Qt, QDir
+from PyQt5.QtWidgets import QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit, QAbstractItemView
 
 
 class MainWindowController:
@@ -44,22 +44,15 @@ class MainWindowController:
         self.update()
 
     def load_game(self):
-        fileDialog = QFileDialog()
-        fileDialog.setWindowTitle("载入")
-        fileDialog.setAcceptMode(QFileDialog.AcceptOpen)
-        fileDialog.setFileMode(QFileDialog.AnyFile)
-        fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory(".")
-        if (fileDialog.exec() == QDialog.Accepted):
-            path = fileDialog.selectedFiles()[0]
+        file_path = QFileDialog.getOpenFileName(caption="载入", directory=QDir.homePath())[0]
+        if (not file_path == ""):
             try:
-                self._dots_and_boxes.load_from_file(path)
+                self._dots_and_boxes.load_from_file(file_path)
             except Exception as e:
                 msgBox = QMessageBox(QMessageBox.Warning, "异常", "载入错误！\n请检查选择的文件是否正确。\n载入大学生计算机博弈大赛点格棋标准棋谱文件，请选择 ->工具 ->载入标准棋谱。", QMessageBox.Ok, self._window)
                 msgBox.show()
                 self._dots_and_boxes = DotsAndBoxes()
             self.update()
-        fileDialog.show()
 
     def end_game(self):
         self._dots_and_boxes.end_game()
@@ -71,7 +64,7 @@ class MainWindowController:
         fileDialog.setAcceptMode(QFileDialog.AcceptSave)
         fileDialog.setFileMode(QFileDialog.AnyFile)
         fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory(".")
+        fileDialog.setDirectory(QDir.homePath())
         fileDialog.selectFile("DotsAndBoxesRecord.dbr")
         if (fileDialog.exec() == QDialog.Accepted):
             path = fileDialog.selectedFiles()[0]
@@ -79,36 +72,21 @@ class MainWindowController:
         fileDialog.show()
 
     def load_standard_record(self):
-        fileDialog = QFileDialog()
-        fileDialog.setWindowTitle("载入")
-        fileDialog.setAcceptMode(QFileDialog.AcceptOpen)
-        fileDialog.setFileMode(QFileDialog.AnyFile)
-        fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory(".")
-        if (fileDialog.exec() == QDialog.Accepted):
-            path = fileDialog.selectedFiles()[0]
+        file_path = QFileDialog.getOpenFileName(caption="载入标准棋谱", directory=QDir.homePath())[0]
+        if (not file_path == ""):
             try:
-                self._dots_and_boxes.load_from_file(path, 0)
+                self._dots_and_boxes.load_from_file(file_path, 0)
             except Exception as e:
                 msgBox = QMessageBox(QMessageBox.Warning, "异常", "载入错误！\n请检查文件是否符合大学生计算机博弈大赛点格棋标准棋谱格式。", QMessageBox.Ok, self._window)
                 msgBox.show()
                 self._dots_and_boxes = DotsAndBoxes()
             self.update()
-        fileDialog.show()
 
     def export_standard_record(self):
         event, ok = QInputDialog.getText(self._window, "比赛信息", "请输入比赛名称:", QLineEdit.Normal, "大学生计算机博弈大赛")
-
-        fileDialog = QFileDialog()
-        fileDialog.setWindowTitle("保存到")
-        fileDialog.setAcceptMode(QFileDialog.AcceptSave)
-        fileDialog.setFileMode(QFileDialog.Directory)
-        fileDialog.setViewMode(QFileDialog.Detail)
-        fileDialog.setDirectory(".")
-        if (fileDialog.exec() == QDialog.Accepted):
-            path = fileDialog.selectedFiles()[0]
-            self._dots_and_boxes.save_to_file(path + "/", 0, event)
-        fileDialog.show()
+        file_path = QFileDialog.getExistingDirectory(caption="导出标准棋谱到", directory=QDir.homePath())
+        if (not file_path == ""):
+            self._dots_and_boxes.save_to_file(file_path + "/", 0, event)
 
     def set_red_player(self):
         red_player_name, ok = QInputDialog.getText(self._window, "设定红方玩家", "请输入红方玩家名称:", QLineEdit.Normal, "RedPlayer")
