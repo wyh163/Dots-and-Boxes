@@ -1,4 +1,6 @@
 # Dots-and-Boxes
+[![PyPI version](https://img.shields.io/pypi/v/DotsAndBoxes.svg)](https://pypi.python.org/pypi/DotsAndBoxes)
+
 点格棋
 
 本软件是一个点格棋博弈软件，可用于人人对战，未来扩展AI通讯接口后，支持加载AI实现人机对战和机机对战功能。
