@@ -220,6 +220,8 @@ class DotsAndBoxes:
             dict = {"R": self._red_player.name,
                     "B": self._blue_player.name,
                     "winner": "R" if self._current_game.winner == Color.red else "B",
+                    "RScore": self._red_player.score,
+                    "BScore": self._blue_player.score,
                     "Date": self._current_game.datetime.strftime("%Y-%m-%d"),
                     "Event": event,
                     "game": pieces_str}

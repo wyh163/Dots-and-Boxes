@@ -84,12 +84,16 @@ class MainWindowController:
 
     def export_standard_record(self):
         event, ok = QInputDialog.getText(self._window, "比赛信息", "请输入比赛名称:", QLineEdit.Normal, "大学生计算机博弈大赛")
+        if (not ok):
+            return
         file_path = QFileDialog.getExistingDirectory(caption="导出标准棋谱到", directory=QDir.homePath())
         if (not file_path == ""):
             self._dots_and_boxes.save_to_file(file_path + "/", 0, event)
 
     def set_red_player(self):
         red_player_name, ok = QInputDialog.getText(self._window, "设定红方玩家", "请输入红方玩家名称:", QLineEdit.Normal, "RedPlayer")
+        if (not ok):
+            return
         try:
             self._dots_and_boxes.red_player = Player.RedPlayer(red_player_name)
         except DBError as e:
@@ -98,6 +102,8 @@ class MainWindowController:
 
     def set_blue_player(self):
         blue_player_name, ok = QInputDialog.getText(self._window, "设定蓝方玩家", "请输入蓝方玩家名称:", QLineEdit.Normal, "BluePlayer")
+        if (not ok):
+            return
         try:
             self._dots_and_boxes.blue_player = Player.BluePlayer(blue_player_name)
         except DBError as e:

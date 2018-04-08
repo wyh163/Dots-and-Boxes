@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='DotsAndBoxes',
-    version='1.0.2',
+    version='1.0.3',
     description=(
         '点格棋对弈软件'
     ),
@@ -26,7 +26,8 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5'
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6'
     ],
     install_requires=[
         'PyQt5'
