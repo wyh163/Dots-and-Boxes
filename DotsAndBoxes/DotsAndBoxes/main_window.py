@@ -335,39 +335,11 @@ class Ui_MainWindow(object):
         self.historyTableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Custom)
         self.infoLayout.addWidget(self.historyTableView)
 
-        self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, controller, parent=None):
+    def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-
-        self._controller = controller
-
-        for x in "abcdef":
-            for y in range(1, 6):
-                button = self.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "v")
-                button.clicked.connect(lambda t, c=(x, str(y), "v"), b=button: self._controller.piece_button_is_clicked(c, b))
-        for x in "abcde":
-            for y in range(1, 7):
-                button = self.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
-                button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self._controller.piece_button_is_clicked(c, b))
-
-        self.newGameAction.triggered.connect(self._controller.new_game)
-        self.loadGameAction.triggered.connect(self._controller.load_game)
-        self.endGameAction.triggered.connect(self._controller.end_game)
-        self.saveGameAction.triggered.connect(self._controller.save_game)
-        self.backAction.triggered.connect(self._controller.back)
-        self.forwardAction.triggered.connect(self._controller.forward)
-        self._turnToStartAction.triggered.connect(lambda t, step=0: self._controller.turn_to_step(step))
-        self._turnToEndAction.triggered.connect(self._controller._turn_to_end)
-        self.setRedPlayerAction.triggered.connect(self._controller.set_red_player)
-        self.setBluePlayerAction.triggered.connect(self._controller.set_blue_player)
-        self.loadStandardRecordAction.triggered.connect(self._controller.load_standard_record)
-        self.exportStandardRecordAction.triggered.connect(self._controller.export_standard_record)
 

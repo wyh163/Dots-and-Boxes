@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QFileDialog, QDialog, QMessageBox, QInputDialog, QLi
 
 class MainWindowController:
     def __init__(self):
-        self._window = MainWindow(self)
+        self._window = MainWindow()
 
         self._window.historyTableView.horizontalHeader().setHighlightSections(False)
         self._window.historyTableView.verticalHeader().setVisible(False)
@@ -27,6 +27,28 @@ class MainWindowController:
         self._window.historyTableView.setColumnWidth(0, 35)
         self._window.historyTableView.setColumnWidth(1, 35)
         self._window.historyTableView.setColumnWidth(2, 100)
+
+        self._window.newGameAction.triggered.connect(self.new_game)
+        self._window.loadGameAction.triggered.connect(self.load_game)
+        self._window.endGameAction.triggered.connect(self.end_game)
+        self._window.saveGameAction.triggered.connect(self.save_game)
+        self._window.backAction.triggered.connect(self.back)
+        self._window.forwardAction.triggered.connect(self.forward)
+        self._window._turnToStartAction.triggered.connect(lambda t, step=0: self.turn_to_step(step))
+        self._window._turnToEndAction.triggered.connect(self._turn_to_end)
+        self._window.setRedPlayerAction.triggered.connect(self.set_red_player)
+        self._window.setBluePlayerAction.triggered.connect(self.set_blue_player)
+        self._window.loadStandardRecordAction.triggered.connect(self.load_standard_record)
+        self._window.exportStandardRecordAction.triggered.connect(self.export_standard_record)
+        
+        for x in "abcdef":
+            for y in range(1, 6):
+                button = self._window.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "v")
+                button.clicked.connect(lambda t, c=(x, str(y), "v"), b=button: self._window.piece_button_is_clicked(c, b))
+        for x in "abcde":
+            for y in range(1, 7):
+                button = self._window.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
+                button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self._window.piece_button_is_clicked(c, b))
 
         self._dots_and_boxes = DotsAndBoxes()
         self.update()
