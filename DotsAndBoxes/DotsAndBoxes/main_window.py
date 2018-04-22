@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from .dots_and_boxes.model import *
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 

@@ -15,20 +15,6 @@ class DBException(Exception):
             self.info = args[0][0]
 
 
-class _Player:
-    def __init__(self, color):
-        self._color = color
-        self._score = 0
-
-    @property
-    def color(self):
-        return self._color
-
-    @property
-    def score(self):
-        return self._score
-
-
 class Piece:
     def __init__(self, player, user_coordinate):  # 坐标合法性检查在坐标转换函数中完成
         self._player = player

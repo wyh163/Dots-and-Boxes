@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from .dots_and_boxes.dots_and_boxes import *
-from .main_window import *
-import sys
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt, QDir
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit, QAbstractItemView
+
+from .dots_and_boxes.dots_and_boxes import *
+from .dots_and_boxes.player import *
+from .main_window import *
 
 
 class MainWindowController:
@@ -44,13 +45,13 @@ class MainWindowController:
         for x in "abcdef":
             for y in range(1, 6):
                 button = self._window.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "v")
-                button.clicked.connect(lambda t, c=(x, str(y), "v"), b=button: self._window.piece_button_is_clicked(c, b))
+                button.clicked.connect(lambda t, c=(x, str(y), "v"), b=button: self.piece_button_is_clicked(c, b))
         for x in "abcde":
             for y in range(1, 7):
                 button = self._window.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
-                button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self._window.piece_button_is_clicked(c, b))
+                button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self.piece_button_is_clicked(c, b))
 
-        self._dots_and_boxes = DotsAndBoxes()
+        self._dots_and_boxes = DotsAndBoxes(self)
         self.update()
 
     @property
@@ -117,7 +118,7 @@ class MainWindowController:
         if (not ok):
             return
         try:
-            self._dots_and_boxes.red_player = Player.RedPlayer(red_player_name)
+            self._dots_and_boxes.red_player = HumanPlayer(Color.red, red_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
@@ -127,7 +128,7 @@ class MainWindowController:
         if (not ok):
             return
         try:
-            self._dots_and_boxes.blue_player = Player.BluePlayer(blue_player_name)
+            self._dots_and_boxes.blue_player = HumanPlayer(Color.blue, blue_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
@@ -137,8 +138,10 @@ class MainWindowController:
             return
         if (self._dots_and_boxes.current_game.is_end):
             return
-        self._dots_and_boxes.move(self._dots_and_boxes.current_player.color, coordinate)
-        self.update()
+        try:
+            self._dots_and_boxes.current_player.move(coordinate)
+        except Exception as e:
+            print(e)
         if (self._dots_and_boxes.current_game.is_end):
             msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
             msgBox.show()
@@ -307,3 +310,4 @@ class MainWindowController:
 
     def set_history_table_view_place(self, percent):
         pass
+

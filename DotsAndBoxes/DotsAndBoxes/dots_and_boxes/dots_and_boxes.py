@@ -1,17 +1,18 @@
 # -*- coding: UTF-8 -*-
-from .game import *
-from .model import Color, _Player
 import json
+
+from .game import *
+from .player import *
 
 
 class DotsAndBoxes:
-    def __init__(self):
+    def __init__(self, window_controller=None):
         self._current_game = None
         self._history = None
-        self._current_move = None
         self._current_step = None
         self._red_player = None
         self._blue_player = None
+        self._window_controller = window_controller
 
     @property
     def current_game(self):
@@ -25,7 +26,7 @@ class DotsAndBoxes:
     def last_move(self):
         if (self._current_game == None or self._current_step == 0):
             raise DBError("Do not have step")
-        return (self._current_step, self._history[self._current_step-1])
+        return self._history[self._current_step-1]
 
     @property
     def red_player(self):
@@ -85,7 +86,6 @@ class DotsAndBoxes:
 
         self._current_game = None
         self._history = None
-        self._current_move = None
         self._current_step = None
 
     def _move(self, piece):
@@ -109,6 +109,9 @@ class DotsAndBoxes:
 
         piece = Piece(self.current_player, user_coordinate)
         self._move(piece)
+        self.current_player.last_move(self.last_move, self._current_game.board)
+        if (not self._window_controller == None):
+            self._window_controller.update()
 
     def move_with_str(self, input_str):
         if (self._current_game == None):
@@ -241,8 +244,8 @@ class DotsAndBoxes:
         f.close()
         if (mode == 0):  # 非常智障的模式
             data = json.loads(file_data)
-            self._red_player = Player.RedPlayer(data['R'])
-            self._blue_player = Player.BluePlayer(data['B'])
+            self._red_player = HumanPlayer(Color.red, data['R'], self)
+            self._blue_player = HumanPlayer(Color.blue, data['B'], self)
             self._new_game()
             step_str_arr = data['game'].split(';')
             step_str_arr.pop()
@@ -250,8 +253,8 @@ class DotsAndBoxes:
                 self.move_with_str(step_str)
         else:
             data = json.loads(file_data)
-            self._red_player = Player.RedPlayer(data['R'])
-            self._blue_player = Player.BluePlayer(data['B'])
+            self._red_player = HumanPlayer(Color.red, data['R'], self)
+            self._blue_player = HumanPlayer(Color.blue, data['B'], self)
             self._new_game()
             for step_data in data['pieces']:
                 self.move(Color.red if step_data['player'] == 'r' else Color.blue, (step_data['coordinate'][0], step_data['coordinate'][1], step_data['coordinate'][2]))
@@ -260,22 +263,4 @@ class DotsAndBoxes:
 class DBError(DBException):
     def __init__(self, *args, **kwargs):
         super(DBError, self).__init__(args, kwargs)
-
-
-class Player(_Player):
-    def __init__(self, color, name):
-        super(Player, self).__init__(color)
-        self._name = name
-
-    @property
-    def name(self):
-        return self._name
-
-    @staticmethod
-    def RedPlayer(name):
-        return Player(Color.red, name)
-
-    @staticmethod
-    def BluePlayer(name):
-        return Player(Color.blue, name)
 

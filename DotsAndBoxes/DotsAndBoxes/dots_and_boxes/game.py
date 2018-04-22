@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
+import datetime
+
 from .model import *
-from datetime import datetime
 
 
 class Game:
