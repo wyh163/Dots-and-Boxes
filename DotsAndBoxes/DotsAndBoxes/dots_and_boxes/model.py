@@ -16,19 +16,15 @@ class DBException(Exception):
 
 
 class Piece:
-    def __init__(self, player, user_coordinate):  # 坐标合法性检查在坐标转换函数中完成
-        self._player = player
+    def __init__(self, color, user_coordinate):  # 坐标合法性检查在坐标转换函数中完成
+        self._color = color
         self._coordinate = self._coordinate_exchange(user_coordinate)  # 坐标转换，把('b', '4', 'v')转换为(3, 2)
         self._user_coordinate = user_coordinate  # 用户坐标，如('b', '4', 'v')
         self._datetime = datetime.now()
 
     @property
-    def player(self):
-        return self._player
-
-    @property
     def color(self):
-        return self._player.color
+        return self._color
 
     @property
     def coordinate(self):
@@ -48,14 +44,13 @@ class Piece:
         else:
             return False
 
-    def _coordinate_exchange(self, coordinate):  # 坐标转换函数
-        x = 12 - 2 * int(coordinate[1])
+    def _coordinate_exchange(self, user_coordinate):  # 坐标转换函数
+        x = 12 - 2 * int(user_coordinate[1])
+        y = "abcdef".index(user_coordinate[0]) * 2
 
-        y = "abcdef".index(coordinate[0]) * 2
-
-        if (coordinate[2] == 'v'):
+        if (user_coordinate[2] == 'v'):
             x = x - 1
-        elif (coordinate[2] == 'h'):
+        elif (user_coordinate[2] == 'h'):
             y = y + 1
         else:
             raise PieceCoordinateError("Wrong piece coordinate.")
@@ -94,7 +89,7 @@ class Board:
         x = piece.coordinate[0]
         y = piece.coordinate[1]
 
-        if (not self._pieces[x][y] == 0):  # 如果已有棋子则抛出异常
+        if (self._pieces[x][y] != 0):  # 如果已有棋子则抛出异常
             raise BoardError("Cannot set piece")
 
         self._pieces[x][y] = piece
@@ -103,7 +98,7 @@ class Board:
         x = coordinate[0]
         y = coordinate[1]
 
-        if (not self._pieces[x][y] == 0):  # 如果格子已被占领则抛出异常
+        if (self._pieces[x][y] != 0):  # 如果格子已被占领则抛出异常
             raise BoardError("Cannot set box")
 
         self._pieces[x][y] = box

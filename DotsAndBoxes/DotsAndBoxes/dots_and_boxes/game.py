@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import datetime
+import copy
 
 from .model import *
 
@@ -20,7 +21,7 @@ class Game:
 
     @property
     def board(self):
-        return self._board
+        return copy.deepcopy(self._board)
 
     @property
     def score(self):
@@ -59,7 +60,7 @@ class Game:
         if (self.is_end):
             raise MoveError("Game is over")
 
-        if (not piece.color == self.current_player_color):
+        if (piece.color != self.current_player_color):
             raise MoveError("Player color is wrong")
 
         self._board.set_piece(piece)
@@ -69,16 +70,16 @@ class Game:
         score = 0  # 本次得分，用于记录这次落子得分数量
         if self._check_box((x, y-1)):  # 判断格坐标合法性的逻辑在_check_box()函数中
             score = score + 1
-            self._board.set_box((x, y-1), (self._current_player, self._current_player.score + score))
+            self._board.set_box((x, y-1), (self._current_player.color, self._current_player.score + score))
         if self._check_box((x, y+1)):
             score = score + 1
-            self._board.set_box((x, y+1), (self._current_player, self._current_player.score + score))
+            self._board.set_box((x, y+1), (self._current_player.color, self._current_player.score + score))
         if self._check_box((x-1, y)):
             score = score + 1
-            self._board.set_box((x-1, y), (self._current_player, self._current_player.score + score))
+            self._board.set_box((x-1, y), (self._current_player.color, self._current_player.score + score))
         if self._check_box((x+1, y)):
             score = score + 1
-            self._board.set_box((x+1, y), (self._current_player, self._current_player.score + score))
+            self._board.set_box((x+1, y), (self._current_player.color, self._current_player.score + score))
         if (score == 0):  # 如果没得分，就换玩家
             self._current_player = self._blue_player if (self._current_player.color == Color.red) else self._red_player
         else:

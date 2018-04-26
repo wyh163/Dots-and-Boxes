@@ -68,7 +68,7 @@ class MainWindowController:
 
     def load_game(self):
         file_path = QFileDialog.getOpenFileName(caption="载入", directory=QDir.homePath())[0]
-        if (not file_path == ""):
+        if (file_path != ""):
             try:
                 self._dots_and_boxes.load_from_file(file_path)
             except Exception as e:
@@ -96,7 +96,7 @@ class MainWindowController:
 
     def load_standard_record(self):
         file_path = QFileDialog.getOpenFileName(caption="载入标准棋谱", directory=QDir.homePath())[0]
-        if (not file_path == ""):
+        if (file_path != ""):
             try:
                 self._dots_and_boxes.load_from_file(file_path, 0)
             except Exception as e:
@@ -110,7 +110,7 @@ class MainWindowController:
         if (not ok):
             return
         file_path = QFileDialog.getExistingDirectory(caption="导出标准棋谱到", directory=QDir.homePath())
-        if (not file_path == ""):
+        if (file_path != ""):
             self._dots_and_boxes.save_to_file(file_path + "/", 0, event)
 
     def set_red_player(self):
@@ -118,7 +118,7 @@ class MainWindowController:
         if (not ok):
             return
         try:
-            self._dots_and_boxes.red_player = HumanPlayer(Color.red, red_player_name, self._dots_and_boxes)
+            self._dots_and_boxes.red_player = AIPlayer(Color.red, red_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
@@ -207,8 +207,8 @@ class MainWindowController:
         self._window.loadGameAction.setEnabled(False)
         self._window.loadStandardRecordAction.setEnabled(False)
         self._window.endGameAction.setEnabled(True)
-        if (not self._dots_and_boxes.current_game == None):
-            self._window.saveGameAction.setEnabled(not len(self._dots_and_boxes.history) == 0)
+        if (self._dots_and_boxes.current_game != None):
+            self._window.saveGameAction.setEnabled(len(self._dots_and_boxes.history) != 0)
         else:
             self._window.saveGameAction.setEnabled(False)
         self._window.exportStandardRecordAction.setEnabled(self._dots_and_boxes.current_game.is_end)
@@ -236,7 +236,7 @@ class MainWindowController:
                 else:
                     self.set_piece_color(("abcdef"[int(y / 2)], str(int((12 - x) / 2)), "h" if (x % 2 == 0) else "v"))
         # 当前步高亮
-        if (not self._dots_and_boxes.current_step == 0):
+        if (self._dots_and_boxes.current_step != 0):
             coordinate = self._dots_and_boxes.history[self._dots_and_boxes.current_step - 1].user_coordinate
             piece_button = self._window.findChild((QtWidgets.QPushButton,), "button" + coordinate[0] + coordinate[1] + coordinate[2])
             piece_button.setText("•")
@@ -282,9 +282,9 @@ class MainWindowController:
             box.setText("")
 
         else:
-            player = info[0]
+            color = info[0]
             num = info[1]
-            if (player.color == Color.red):
+            if (color == Color.red):
                 box.setStyleSheet("background-color:#ff0000")
             else:
                 box.setStyleSheet("background-color:#0055ff")

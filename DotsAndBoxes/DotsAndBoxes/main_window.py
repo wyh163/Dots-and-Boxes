@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -264,7 +263,7 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.currentStepLabel.setFont(font)
         self.currentStepLabel.setText("0")
-        if (not sys.platform == "linux"):
+        if (sys.platform != "linux"):
             self.currentStepLabel.setFixedHeight(40)
         self.topHalfLayout.addWidget(self.currentStepLabel, 1, 3, 1, 3)
         # 比分

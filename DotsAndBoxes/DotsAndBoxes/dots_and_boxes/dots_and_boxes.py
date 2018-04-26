@@ -25,7 +25,7 @@ class DotsAndBoxes:
     @property
     def last_move(self):
         if (self._current_game == None or self._current_step == 0):
-            raise DBError("Do not have step")
+            return None
         return self._history[self._current_step-1]
 
     @property
@@ -33,10 +33,10 @@ class DotsAndBoxes:
         return self._red_player
     @red_player.setter
     def red_player(self, value):
-        if (not value.color == Color.red):
+        if (value.color != Color.red):
             raise DBError("Invalid players", value)
 
-        if (not self._current_game == None):
+        if (self._current_game != None):
             if (not self._current_game.is_end):
                 raise DBError("Current game is not over")
 
@@ -47,10 +47,10 @@ class DotsAndBoxes:
         return self._blue_player
     @blue_player.setter
     def blue_player(self, value):
-        if (not value.color == Color.blue):
+        if (value.color != Color.blue):
             raise DBError("Invalid players", value)
 
-        if (not self._current_game == None):
+        if (self._current_game != None):
             if (not self._current_game.is_end):
                 raise DBError("Current game is not over")
 
@@ -66,7 +66,7 @@ class DotsAndBoxes:
         return self._current_step
 
     def new_game(self):
-        if (not self._current_game == None):
+        if (self._current_game != None):
             if (not self._current_game.is_end):
                 raise DBError("Current game is not over")
 
@@ -74,6 +74,9 @@ class DotsAndBoxes:
             raise DBError("Lack of player")
 
         self._new_game()
+
+        if isinstance(self.current_player, AIPlayer):
+            self.current_player.last_move(self.last_move, self._current_game.board)
 
     def _new_game(self):
         self._current_game = Game(self._red_player, self._blue_player)
@@ -92,7 +95,7 @@ class DotsAndBoxes:
         self._current_game.move(piece)
 
         if (self._current_step < len(self._history)):  # 当从某一历史步直接下新步时 (先行判断可以避免_history越界)
-            if (not piece == self._history[self._current_step]):  # 如果新步与历史步的下一步历史不同
+            if (piece != self._history[self._current_step]):  # 如果新步与历史步的下一步历史不同
                 while (self._current_step < len(self._history)):  # 先删除这一历史步之后的数据
                     self._history.pop()
                 self._history.append(piece)
@@ -100,28 +103,28 @@ class DotsAndBoxes:
             self._history.append(piece)
         self._current_step = self._current_step + 1
 
-    def move(self, color, user_coordinate):
+    def move(self, piece):
         if (self._current_game == None):
             raise DBError("Do not have current game")
-
-        if (not color == self._current_game.current_player_color):
+        if (piece.color != self._current_game.current_player_color):
             raise MoveError("Player color is wrong")
 
-        piece = Piece(self.current_player, user_coordinate)
         self._move(piece)
-        self.current_player.last_move(self.last_move, self._current_game.board)
-        if (not self._window_controller == None):
+
+        if (self._window_controller != None):
             self._window_controller.update()
+        if isinstance(self.current_player, AIPlayer):
+            self.current_player.last_move(self.last_move, self._current_game.board)
 
     def move_with_str(self, input_str):
-        if (self._current_game == None):
-            raise DBError("Do not have current game")
+        (color, user_coordinate) = self._str_to_coordinate(input_str)
+        if (color != self._current_game.current_player_color):
+            raise MoveError("Player color is wrong")
 
-        piece = self._str_to_coordinate(input_str)
-        self.move(piece[0], piece[1])
+        self.move(Piece(color, user_coordinate))
 
     def _str_to_coordinate(self, input_str):
-        color = x = y = mode = None
+        color = x = y = type = None
         try:
             if (input_str[0] == 'r' or input_str[0] == 'R'):
                 color = Color.red
@@ -147,15 +150,19 @@ class DotsAndBoxes:
             if (y < 0 or y > 6):
                 raise ValueError()
             if (input_str[5] == 'v' or input_str[5] == 'V'):
-                mode = 'v'
+                type = 'v'
             elif (input_str[5] == 'h' or input_str[5] == 'H'):
-                mode = 'h'
+                type = 'h'
             else:
                 raise ValueError
         except (IndexError, ValueError, TypeError):
             raise DBError("Invalid input", input_str)
 
-        return (color, (x, str(y), mode))
+        return (color, (x, str(y), type))
+
+    def _back(self):
+        self._current_game.back()
+        self._current_step = self._current_step - 1
 
     def back(self):
         if (self._current_game == None):
@@ -163,9 +170,10 @@ class DotsAndBoxes:
         if (self._current_step == 0):
             raise DBError("Do not have step")
 
-        self._current_game.back()
+        self._back()
 
-        self._current_step = self._current_step - 1
+        if isinstance(self.current_player, AIPlayer):
+            self.current_player.last_move(self.last_move, self._current_game.board)
 
     def turn_to_step(self, step_num):
         if (self._current_game == None):
@@ -174,10 +182,12 @@ class DotsAndBoxes:
             raise DBError("Invalid step num")
 
         while (self._current_step > step_num):
-            self.back()
-
+            self._back()
         while (self._current_step < step_num):
             self._move(self._history[self._current_step])
+
+        if isinstance(self.current_player, AIPlayer):
+            self.current_player.last_move(self.last_move, self._current_game.board)
 
     def _data_as_dict(self):
         if (self._current_game == None):
@@ -257,7 +267,8 @@ class DotsAndBoxes:
             self._blue_player = HumanPlayer(Color.blue, data['B'], self)
             self._new_game()
             for step_data in data['pieces']:
-                self.move(Color.red if step_data['player'] == 'r' else Color.blue, (step_data['coordinate'][0], step_data['coordinate'][1], step_data['coordinate'][2]))
+                piece = Piece(Color.red if step_data['player'] == 'r' else Color.blue, (step_data['coordinate'][0], step_data['coordinate'][1], step_data['coordinate'][2]))
+                self.move(piece)
 
 
 class DBError(DBException):
