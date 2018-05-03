@@ -10,12 +10,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/DotsAndBoxes$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1524722799184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DotsAndBoxes" />
+    <SUITE FILE_PATH="coverage/DotsAndBoxes$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1525356743496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DotsAndBoxes" />
     <SUITE FILE_PATH="coverage/DotsAndBoxes$dots_and_boxes.coverage" NAME="dots_and_boxes Coverage Results" MODIFIED="1516087968682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/dots_and_boxes" />
     <SUITE FILE_PATH="coverage/DotsAndBoxes$main.coverage" NAME="main Coverage Results" MODIFIED="1517023257439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -27,6 +27,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Exception</find>
+      <find>move</find>
       <find>def __init__(self, *args, **kwargs):</find>
       <find>Player</find>
       <find>raise GameError(&quot;Invalid players&quot;, red_player, blue_player)</find>
@@ -37,22 +38,7 @@
       <find>.score</find>
       <find>pieces_str</find>
       <find>file_path</find>
-      <find>ok</find>
-      <find>piece_button_is_clicked</find>
-      <find>last_move(</find>
-      <find>set_box</find>
-      <find>copy.deepcopy</find>
-      <find>set_piece</find>
-      <find>self._dots_and_boxes.current_game.board</find>
-      <find>piece.player</find>
-      <find>_move</find>
-      <find>piece</find>
-      <find>last_move</find>
-      <find>Piece(</find>
-      <find>move</find>
-      <find>._move</find>
-      <find>self.move(</find>
-      <find>.color</find>
+      <find>isinstance(self.current_player</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -69,9 +55,10 @@
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/test.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/game.py" />
+        <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/main.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py" />
-        <option value="$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py" />
+        <option value="$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py" />
       </list>
     </option>
   </component>
@@ -110,6 +97,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -132,7 +120,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -217,14 +204,14 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.dots_and_boxes" />
       <item itemvalue="Python.__main__" />
+      <item itemvalue="Python.dots_and_boxes" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.__main__" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.dots_and_boxes" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -245,24 +232,24 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23273113" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1390625" />
-      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2794899" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15625" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4410202" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4114053" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" id="Data View" order="4" />
+      <window_info anchor="right" id="Data View" order="3" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -276,13 +263,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py</url>
-          <line>186</line>
-          <option name="timeStamp" value="115" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -290,10 +270,19 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="121" />
+      <option name="time" value="143" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py" />
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/game.py" />
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/model.py" />
+    <entry file="file://$PROJECT_DIR$/src/main.py" />
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py" />
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/game.py" />
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/model.py" />
+    <entry file="file://$PROJECT_DIR$/src/main.py" />
+    <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py" />
     <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/model.py" />
     <entry file="file://$PROJECT_DIR$/src/main.py" />
     <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py" />
@@ -332,151 +321,55 @@
     <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/dots_and_boxes.py" />
     <entry file="file://$PROJECT_DIR$/src/main.py" />
     <entry file="file://$PROJECT_DIR$/src/dots_and_boxes/game.py" />
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/58510215/builtins.py">
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtCore/pyqtSignal.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/PyQt5/QtWidgets/__init__.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/348993582/builtins.py" />
+    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="765" column="8" selection-start-line="765" selection-start-column="8" selection-end-line="765" selection-end-column="8" />
+        <state relative-caret-position="737">
+          <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/58510215/PyQt5/QtWidgets/QMainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="366" column="8" selection-start-line="366" selection-start-column="8" selection-end-line="366" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="1067" selection-start-line="1067" selection-end-line="1067" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UI/MainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="6" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
-          <folding>
-            <element signature="e#25#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/DotsAndBoxes/dots_and_boxes/game.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-          <folding>
-            <element signature="e#24#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="12" />
-          <folding>
-            <element signature="e#24#40#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-1566" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="58" column="12" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="12" />
-          <folding>
-            <element signature="e#24#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="198">
+          <caret line="38" column="14" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="78" column="41" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="41" />
-          <folding>
-            <element signature="e#24#35#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-414">
+          <caret line="79" column="86" selection-start-line="79" selection-start-column="86" selection-end-line="79" selection-end-column="86" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3343">
-          <caret line="305" column="51" lean-forward="true" selection-start-line="305" selection-start-column="51" selection-end-line="305" selection-end-column="51" />
-          <folding>
-            <element signature="e#24#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
-          <folding>
-            <element signature="e#24#45#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="499">
+          <caret line="136" column="58" selection-start-line="136" selection-start-column="58" selection-end-line="136" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="69">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1104">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
           <folding>
-            <element signature="e#24#34#0" expanded="true" />
+            <element signature="e#24#40#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -43,10 +43,8 @@ class AIPlayer(Player):
     def last_move(self, piece, board):
         self._board = board
         self._last_piece = piece
-        # self.__thread = threading.Thread(target=self.move)
-        # self.__thread.setDeamon(True)
-        # self.__thread.start()
-        self.move()
+        self.__thread = threading.Thread(target=self.move)
+        self.__thread.start()
 
     def move(self):
         while True:

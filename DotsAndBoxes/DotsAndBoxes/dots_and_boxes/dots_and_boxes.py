@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import json
+import time
 
 from .game import *
 from .player import *
@@ -13,6 +14,7 @@ class DotsAndBoxes:
         self._red_player = None
         self._blue_player = None
         self._window_controller = window_controller
+        self._update_time = time.time()
 
     @property
     def current_game(self):
@@ -65,6 +67,19 @@ class DotsAndBoxes:
         # int 返回当前步数
         return self._current_step
 
+    @property
+    def need_update(self, last_update_time):
+        return self._update_time > last_update_time
+
+    def _update(self):
+        self._update_time = time.time()
+
+        if (self._window_controller != None):
+            self._window_controller.update()
+
+        if (not self.current_game.is_end) and isinstance(self.current_player, AIPlayer):
+            self.current_player.last_move(self.last_move, self._current_game.board)
+
     def new_game(self):
         if (self._current_game != None):
             if (not self._current_game.is_end):
@@ -75,8 +90,7 @@ class DotsAndBoxes:
 
         self._new_game()
 
-        if isinstance(self.current_player, AIPlayer):
-            self.current_player.last_move(self.last_move, self._current_game.board)
+        self._update()
 
     def _new_game(self):
         self._current_game = Game(self._red_player, self._blue_player)
@@ -111,10 +125,7 @@ class DotsAndBoxes:
 
         self._move(piece)
 
-        if (self._window_controller != None):
-            self._window_controller.update()
-        if isinstance(self.current_player, AIPlayer):
-            self.current_player.last_move(self.last_move, self._current_game.board)
+        self._update()
 
     def move_with_str(self, input_str):
         (color, user_coordinate) = self._str_to_coordinate(input_str)
@@ -172,8 +183,7 @@ class DotsAndBoxes:
 
         self._back()
 
-        if isinstance(self.current_player, AIPlayer):
-            self.current_player.last_move(self.last_move, self._current_game.board)
+        self._update()
 
     def turn_to_step(self, step_num):
         if (self._current_game == None):
@@ -186,8 +196,7 @@ class DotsAndBoxes:
         while (self._current_step < step_num):
             self._move(self._history[self._current_step])
 
-        if isinstance(self.current_player, AIPlayer):
-            self.current_player.last_move(self.last_move, self._current_game.board)
+        self._update()
 
     def _data_as_dict(self):
         if (self._current_game == None):

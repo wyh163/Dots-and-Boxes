@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtCore import Qt, QDir
+from PyQt5.QtCore import Qt, QDir, pyqtSignal
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit, QAbstractItemView
+from PyQt5.QtWidgets import QFileDialog, QDialog, QMessageBox, QInputDialog, QLineEdit, QAbstractItemView, QWidget
 
 from .dots_and_boxes.dots_and_boxes import *
 from .dots_and_boxes.player import *
 from .main_window import *
 
 
-class MainWindowController:
+class MainWindowController(QWidget):
+    _updateSignal = pyqtSignal()
+
     def __init__(self):
+        super(MainWindowController, self).__init__()
         self._window = MainWindow()
 
         self._window.historyTableView.horizontalHeader().setHighlightSections(False)
@@ -50,6 +53,9 @@ class MainWindowController:
             for y in range(1, 7):
                 button = self._window.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
                 button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self.piece_button_is_clicked(c, b))
+
+        # self._updateSignal = pyqtSignal()
+        self._updateSignal.connect(self._update)
 
         self._dots_and_boxes = DotsAndBoxes(self)
         self.update()
@@ -138,10 +144,9 @@ class MainWindowController:
             return
         if (self._dots_and_boxes.current_game.is_end):
             return
-        try:
-            self._dots_and_boxes.current_player.move(coordinate)
-        except Exception as e:
-            print(e)
+
+        self._dots_and_boxes.current_player.move(coordinate)
+
         if (self._dots_and_boxes.current_game.is_end):
             msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
             msgBox.show()
@@ -165,6 +170,9 @@ class MainWindowController:
         self.turn_to_step(len(self._dots_and_boxes.history))
 
     def update(self):
+        self._updateSignal.emit()
+
+    def _update(self):
         if (self._dots_and_boxes.current_game == None):
             self._window.newGameAction.setEnabled(True)
             self._window.loadGameAction.setEnabled(True)
