@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
-import json
-import time
+import json, time
 
 from .game import *
 from .player import *

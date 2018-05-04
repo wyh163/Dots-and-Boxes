@@ -7,6 +7,8 @@ from .dots_and_boxes.dots_and_boxes import *
 from .dots_and_boxes.player import *
 from .main_window import *
 
+from .dots_and_boxes.AIPlayer.random_AI import RandomAI
+
 
 class MainWindowController(QWidget):
     _updateSignal = pyqtSignal()
@@ -124,7 +126,7 @@ class MainWindowController(QWidget):
         if (not ok):
             return
         try:
-            self._dots_and_boxes.red_player = AIPlayer(Color.red, red_player_name, self._dots_and_boxes)
+            self._dots_and_boxes.red_player = RandomAI(Color.red, red_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
