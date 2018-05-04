@@ -15,6 +15,14 @@ class RandomAI(AIPlayer):
         print(self.score)
         # 也可以添加自定义属性
 
+    def start_new_game(self):
+        # 做一些游戏开始时的初始化工作
+        print("Game is start.")
+
+    def game_is_over(self, is_win):
+        # 获得比赛结果
+        print("You win!" if is_win else "You lose.")
+
     def move(self):
         # 通过访问属性获得当前局面
         print(self._board)

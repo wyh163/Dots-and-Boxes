@@ -76,7 +76,10 @@ class DotsAndBoxes:
         if (self._window_controller != None):
             self._window_controller.update()
 
-        if (not self.current_game.is_end) and isinstance(self.current_player, AIPlayer):
+        if self.current_game.is_end:
+            self.red_player._game_is_over(self.current_game.winner == Color.red)
+            self.blue_player._game_is_over(self.current_game.winner == Color.blue)
+        elif isinstance(self.current_player, AIPlayer):
             self.current_player.last_move(self.last_move, self._current_game.board)
 
     def new_game(self):

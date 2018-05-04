@@ -22,6 +22,19 @@ class Player:
     def score(self):
         return self._score
 
+    def _start_new_game(self):
+        self._score = 0
+        self.start_new_game()
+
+    def _game_is_over(self, is_win):
+        self.game_is_over(is_win)
+
+    def start_new_game(self):
+        pass
+
+    def game_is_over(self, is_win):
+        pass
+
 
 class HumanPlayer(Player):
     def __init__(self, color, name, game_controller):
@@ -48,4 +61,10 @@ class AIPlayer(Player):
 
     def move(self, coordinate=None):
         self.__game_controller.move(Piece(self.color, coordinate))
+
+    def start_new_game(self):
+        pass
+
+    def game_is_over(self, is_win):
+        pass
 
