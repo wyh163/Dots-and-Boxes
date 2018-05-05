@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import threading
+import threading, time
 
 from .model import *
 
@@ -53,13 +53,15 @@ class AIPlayer(Player):
         self._last_piece = None
         self.__thread = None
 
-    def last_move(self, piece, board):
+    def last_move(self, piece, board, next_player_color):
         self._board = board
         self._last_piece = piece
-        self.__thread = threading.Thread(target=self.move)
-        self.__thread.start()
+        if (next_player_color == self.color):
+            self.__thread = threading.Thread(target=self.move)
+            self.__thread.start()
 
     def move(self, coordinate=None):
+        time.sleep(0.01)
         self.__game_controller.move(Piece(self.color, coordinate))
 
     def start_new_game(self):

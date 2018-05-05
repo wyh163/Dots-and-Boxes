@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import random
+import threading, random
 
 from ..player import AIPlayer
 from ..model import *
@@ -22,6 +22,17 @@ class RandomAI(AIPlayer):
     def game_is_over(self, is_win):
         # 获得比赛结果
         print("You win!" if is_win else "You lose.")
+
+    def last_move(self, piece, board, next_player_color):
+        # 可以重载此函数以实现自定义的历史局面保留
+        # 重载后请不要调用父类，因为这可能造成保存局面信息的属性被覆盖
+        # 同时请注意要异步调用self.move()
+        # 以下代码为父类的实现
+        self._board = board
+        self._last_piece = piece
+        if (next_player_color == self.color):
+            self.__thread = threading.Thread(target=self.move)
+            self.__thread.start()
 
     def move(self):
         # 通过访问属性获得当前局面

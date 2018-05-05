@@ -10,12 +10,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/DotsAndBoxes$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1525437380158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DotsAndBoxes" />
+    <SUITE FILE_PATH="coverage/DotsAndBoxes$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1525516426058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DotsAndBoxes" />
     <SUITE FILE_PATH="coverage/DotsAndBoxes$dots_and_boxes.coverage" NAME="dots_and_boxes Coverage Results" MODIFIED="1516087968682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/dots_and_boxes" />
     <SUITE FILE_PATH="coverage/DotsAndBoxes$main.coverage" NAME="main Coverage Results" MODIFIED="1517023257439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -57,12 +57,12 @@
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/main.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/Random.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/RandomAI.py" />
-        <option value="$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/game.py" />
+        <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py" />
+        <option value="$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/random_AI.py" />
-        <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py" />
       </list>
     </option>
   </component>
@@ -101,6 +101,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -130,7 +131,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -277,12 +277,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py</url>
-          <line>65</line>
+          <line>67</line>
           <option name="timeStamp" value="169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py</url>
-          <line>68</line>
+          <line>70</line>
           <option name="timeStamp" value="170" />
         </line-breakpoint>
       </breakpoints>
@@ -302,7 +302,7 @@
         <state relative-caret-position="299">
           <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
           <folding>
-            <element signature="e#24#37#0" expanded="true" />
+            <element signature="e#24#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -370,25 +370,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/RandomAI.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3/datetime.pyi">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
           <folding>
             <element signature="e#24#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-351">
-          <caret line="128" column="54" selection-start-line="128" selection-start-column="54" selection-end-line="128" selection-end-column="54" />
-          <folding>
-            <element signature="e#24#69#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -403,32 +390,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py">
+    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="322">
+          <caret line="138" column="55" selection-start-line="138" selection-start-column="55" selection-end-line="138" selection-end-column="55" />
           <folding>
-            <element signature="e#24#40#0" expanded="true" />
+            <element signature="e#24#69#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py">
+    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="80" column="67" selection-start-line="80" selection-start-column="67" selection-end-line="80" selection-end-column="67" />
+        <state relative-caret-position="209">
+          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
           <folding>
-            <element signature="e#24#41#0" expanded="true" />
+            <element signature="e#24#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/random_AI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="782">
+          <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
           <folding>
-            <element signature="e#24#37#0" expanded="true" />
+            <element signature="e#24#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-688">
+          <caret line="128" selection-start-line="128" selection-end-line="128" />
+          <folding>
+            <element signature="e#24#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
