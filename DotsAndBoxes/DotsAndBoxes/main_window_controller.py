@@ -46,6 +46,7 @@ class MainWindowController(QWidget):
         self._window.setBluePlayerAction.triggered.connect(self.set_blue_player)
         self._window.loadStandardRecordAction.triggered.connect(self.load_standard_record)
         self._window.exportStandardRecordAction.triggered.connect(self.export_standard_record)
+        self._window.setPieceAnnotationAction.triggered.connect(self._set_piece_annotation)
         
         for x in "abcdef":
             for y in range(1, 6):
@@ -56,11 +57,12 @@ class MainWindowController(QWidget):
                 button = self._window.findChild((QtWidgets.QPushButton, ), "button" + x + str(y) + "h")
                 button.clicked.connect(lambda t, c=(x, str(y), "h"), b=button: self.piece_button_is_clicked(c, b))
 
-        # self._updateSignal = pyqtSignal()
         self._updateSignal.connect(self._update)
 
         self._dots_and_boxes = DotsAndBoxes(self)
         self.update()
+
+        self._wait_piece_annotation = ""
 
     @property
     def window(self):
@@ -126,7 +128,7 @@ class MainWindowController(QWidget):
         if (not ok):
             return
         try:
-            self._dots_and_boxes.red_player = GMAI(Color.red, red_player_name, self._dots_and_boxes)
+            self._dots_and_boxes.red_player = HumanPlayer(Color.red, red_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
@@ -136,10 +138,20 @@ class MainWindowController(QWidget):
         if (not ok):
             return
         try:
-            self._dots_and_boxes.blue_player = HumanPlayer(Color.blue, blue_player_name, self._dots_and_boxes)
+            self._dots_and_boxes.blue_player = GMAI(Color.blue, blue_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
+
+    def _set_piece_annotation(self):
+        self._wait_piece_annotation, ok = QInputDialog.getText(self._window, "添加注释", "注释内容:", QLineEdit.Normal, "")
+        if (not ok):
+            self._wait_piece_annotation = ""
+            return
+        else:
+            if (self._dots_and_boxes.current_step <= len(self._dots_and_boxes.history)):
+                self._dots_and_boxes.set_piece_annotation(self._dots_and_boxes.current_step-1, self._wait_piece_annotation)
+                self._wait_piece_annotation = ""
 
     def piece_button_is_clicked(self, coordinate, sender):
         if (self._dots_and_boxes.current_game == None):
@@ -148,6 +160,10 @@ class MainWindowController(QWidget):
             return
 
         self._dots_and_boxes.current_player.move(coordinate)
+
+        if self._wait_piece_annotation != "":
+            self._dots_and_boxes.set_piece_annotation(self._dots_and_boxes.current_step-1, self._wait_piece_annotation)
+            self._wait_piece_annotation = ""
 
         if (self._dots_and_boxes.current_game.is_end):
             msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
@@ -167,7 +183,7 @@ class MainWindowController(QWidget):
         self._dots_and_boxes.turn_to_step(step_num)
         self.update()
 
-    # !!!警告！！！ 这是一个临时api，将在之后的版本中删掉
+    # !!!警告!!! 这是一个临时api，将在之后的版本中删掉
     def _turn_to_end(self):
         self.turn_to_step(len(self._dots_and_boxes.history))
 

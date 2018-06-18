@@ -211,9 +211,12 @@ class DotsAndBoxes:
 
         pieces = []
         for piece in self._current_game.history:
-            pieces.append({"timestamp": piece.datetime.timestamp(),
+            piece_dict = {"timestamp": piece.datetime.timestamp(),
                            "player": "r" if piece.color == Color.red else "b",
-                           "coordinate": "".join(piece.user_coordinate)})
+                           "coordinate": "".join(piece.user_coordinate)}
+            if piece.annotation != "":
+                piece_dict["annotation"] = piece.annotation
+            pieces.append(piece_dict)
 
         dict = {"R": self._red_player.name,
                 "B": self._blue_player.name,
@@ -233,17 +236,18 @@ class DotsAndBoxes:
             if (event == None):
                 raise DBError("Invalid event")
 
-            pieces_str = ""
+            pieces_arr = []
             for piece in self._current_game.history:
+                piece_str = ""
                 if (piece.color == Color.red):
-                    pieces_str = pieces_str + "r"
+                    piece_str = piece_str + "r"
                 else:
-                    pieces_str = pieces_str + "b"
-                pieces_str = pieces_str + "("
-                pieces_str = pieces_str + "".join(piece.user_coordinate[0:2])
-                pieces_str = pieces_str + ","
-                pieces_str = pieces_str + "".join(piece.user_coordinate[2])
-                pieces_str = pieces_str + ");"
+                    piece_str = piece_str + "b"
+                piece_str = piece_str + "(" + "".join(piece.user_coordinate[0:2]) + "," + "".join(piece.user_coordinate[2]) + ")"
+                piece_dict = {"piece": piece_str}
+                if piece.annotation != "":
+                    piece_dict["annotation"] = piece.annotation
+                pieces_arr.append(piece_dict)
             dict = {"R": self._red_player.name,
                     "B": self._blue_player.name,
                     "winner": "R" if self._current_game.winner == Color.red else "B",
@@ -251,7 +255,7 @@ class DotsAndBoxes:
                     "BScore": self._blue_player.score,
                     "Date": self._current_game.datetime.strftime("%Y-%m-%d"),
                     "Event": event,
-                    "game": pieces_str}
+                    "game": pieces_arr}
             file_path = file_path + "DB：" + self._red_player.name + " vs " + self._blue_player.name + "："
             file_path = file_path + ("先手胜" if self._current_game.winner == Color.red else "后手胜")
             file_path = file_path + ".txt"#'''
@@ -271,10 +275,8 @@ class DotsAndBoxes:
             self._red_player = HumanPlayer(Color.red, data['R'], self)
             self._blue_player = HumanPlayer(Color.blue, data['B'], self)
             self._new_game()
-            step_str_arr = data['game'].split(';')
-            step_str_arr.pop()
-            for step_str in step_str_arr:
-                self.move_with_str(step_str)
+            for step in data['game']:
+                self.move_with_str(step["piece"])
         else:
             data = json.loads(file_data)
             self._red_player = HumanPlayer(Color.red, data['R'], self)
@@ -283,6 +285,14 @@ class DotsAndBoxes:
             for step_data in data['pieces']:
                 piece = Piece(Color.red if step_data['player'] == 'r' else Color.blue, (step_data['coordinate'][0], step_data['coordinate'][1], step_data['coordinate'][2]))
                 self.move(piece)
+
+    def set_piece_annotation(self, step_num, annotation):
+        if (self._current_game == None):
+            raise DBError("Do not have current game")
+        if (step_num < 0 or step_num > len(self._history)):
+            raise DBError("Invalid step num")
+
+        self._history[step_num].annotation = annotation
 
 
 class DBError(DBException):

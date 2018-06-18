@@ -21,6 +21,7 @@ class Piece:
         self._coordinate = self._coordinate_exchange(user_coordinate)  # 坐标转换，把('b', '4', 'v')转换为(3, 2)
         self._user_coordinate = user_coordinate  # 用户坐标，如('b', '4', 'v')
         self._datetime = datetime.now()
+        self.annotation = ""
 
     @property
     def color(self):

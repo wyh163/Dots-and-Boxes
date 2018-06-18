@@ -126,6 +126,10 @@ class Ui_MainWindow(object):
         self.exportStandardRecordAction.setObjectName("exportStandardRecordAction")
         self.exportStandardRecordAction.setText("导出标准棋谱")
         self.menu2.addAction(self.exportStandardRecordAction)
+        self.setPieceAnnotationAction = QtWidgets.QAction(self)
+        self.setPieceAnnotationAction.setObjectName("setPieceAnnotationAction")
+        self.setPieceAnnotationAction.setText("给当前步添加注释")
+        self.menu2.addAction(self.setPieceAnnotationAction)
 
         # 工具栏
 
