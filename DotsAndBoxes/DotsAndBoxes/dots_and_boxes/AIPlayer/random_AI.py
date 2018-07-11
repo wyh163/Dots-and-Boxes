@@ -23,12 +23,13 @@ class RandomAI(AIPlayer):
         # 获得比赛结果
         print("You win!" if is_win else "You lose.")
 
-    def last_move(self, piece, board, next_player_color):
+    def last_move(self, piece, board, history, next_player_color):
         # 可以重载此函数以实现自定义的历史局面保留
         # 重载后请不要调用父类，因为这可能造成保存局面信息的属性被覆盖
         # 同时请注意要异步调用self.move()
         # 以下代码为父类的实现
         self._board = board
+        self._history = history
         self._last_piece = piece
         if (next_player_color == self.color):
             self.__thread = threading.Thread(target=self.move)

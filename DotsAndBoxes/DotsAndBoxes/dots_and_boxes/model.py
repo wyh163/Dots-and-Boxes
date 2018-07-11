@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import copy
 from enum import Enum
 from datetime import datetime
 
@@ -84,7 +85,7 @@ class Board:
 
     @property
     def pieces(self):
-        return self._pieces.copy()
+        return copy.deepcopy(self._pieces)
 
     def set_piece(self, piece):
         x = piece.coordinate[0]
@@ -134,7 +135,7 @@ class PieceHistory():
 
     @property
     def list(self):
-        return self._list.copy()
+        return copy.deepcopy(self._list)
 
     @property
     def len(self):

@@ -50,11 +50,13 @@ class AIPlayer(Player):
         super(AIPlayer, self).__init__(color, name)
         self.__game_controller = game_controller
         self._board = None
+        self._history = None
         self._last_piece = None
         self.__thread = None
 
-    def last_move(self, piece, board, next_player_color):
+    def last_move(self, piece, board, history, next_player_color):
         self._board = board
+        self._history = history
         self._last_piece = piece
         if (next_player_color == self.color):
             self.__thread = threading.Thread(target=self.move)

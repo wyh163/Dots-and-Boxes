@@ -81,9 +81,9 @@ class DotsAndBoxes:
             self.blue_player._game_is_over(self.current_game.winner == Color.blue)
         else:
             if isinstance(self.red_player, AIPlayer):
-                self.red_player.last_move(self.last_move, self._current_game.board, self.current_player.color)
+                self.red_player.last_move(self.last_move, self._current_game.board, self._current_game.history, self.current_player.color)
             if isinstance(self.blue_player, AIPlayer):
-                self.blue_player.last_move(self.last_move, self._current_game.board, self.current_player.color)
+                self.blue_player.last_move(self.last_move, self._current_game.board, self._current_game.history, self.current_player.color)
 
     def new_game(self):
         if (self._current_game != None):
