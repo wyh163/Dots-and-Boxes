@@ -7,7 +7,8 @@ from .dots_and_boxes.dots_and_boxes import *
 from .dots_and_boxes.player import *
 from .main_window import *
 
-from .dots_and_boxes.AIPlayer.gm_AI import GMAI
+from .dots_and_boxes.AIPlayer.PLF_AI import PLFAI
+from .dots_and_boxes.AIPlayer.random_AI import RandomAI
 
 
 class MainWindowController(QWidget):
@@ -138,7 +139,7 @@ class MainWindowController(QWidget):
         if (not ok):
             return
         try:
-            self._dots_and_boxes.blue_player = GMAI(Color.blue, blue_player_name, self._dots_and_boxes)
+            self._dots_and_boxes.blue_player = RandomAI(Color.blue, blue_player_name, self._dots_and_boxes)
         except DBError as e:
             msgBox = QMessageBox(QMessageBox.Warning, "异常", e.info, QMessageBox.Ok, self._window)
             msgBox.show()
@@ -159,15 +160,14 @@ class MainWindowController(QWidget):
         if (self._dots_and_boxes.current_game.is_end):
             return
 
+        if isinstance(self._dots_and_boxes.current_player, AIPlayer):
+            return
+
         self._dots_and_boxes.current_player.move(coordinate)
 
         if self._wait_piece_annotation != "":
             self._dots_and_boxes.set_piece_annotation(self._dots_and_boxes.current_step-1, self._wait_piece_annotation)
             self._wait_piece_annotation = ""
-
-        if (self._dots_and_boxes.current_game.is_end):
-            msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
-            msgBox.show()
 
     def back(self):
         self._dots_and_boxes.back()
@@ -286,6 +286,10 @@ class MainWindowController(QWidget):
         self._window.historyTableView.setColumnWidth(0, 35)
         self._window.historyTableView.setColumnWidth(1, 35)
         self._window.historyTableView.setColumnWidth(2, 100)
+
+        if (self._dots_and_boxes.current_game.is_end):
+            msgBox = QMessageBox(QMessageBox.NoIcon, "游戏结束", "红方获胜" if self._dots_and_boxes.current_game.winner == Color.red else "蓝方获胜", QMessageBox.Ok, self._window)
+            msgBox.show()
 
     def set_piece_color(self, coordinate, color=None):
         piece = self._window.findChild((QtWidgets.QPushButton,), "button" + coordinate[0] + coordinate[1] + coordinate[2])

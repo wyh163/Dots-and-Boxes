@@ -96,7 +96,7 @@ class Board:
 
         self._pieces[x][y] = piece
 
-    def set_box(self, coordinate, box):
+    def set_box(self, coordinate, box):  # box:(color, score)
         x = coordinate[0]
         y = coordinate[1]
 
