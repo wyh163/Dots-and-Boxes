@@ -5,12 +5,12 @@ from ..player import AIPlayer
 from ..model import *
 
 
-# 这是一个AI示例，使用随机算法
 class PLFAI(AIPlayer):
-    def __init__(self, color, name, game_controller):
+    def __init__(self, color, name, game_controller, ser_ip="0.0.0.0", ser_port=33301):
         super(PLFAI, self).__init__(color, name, game_controller)
         self._game_controller = game_controller
-        # self._comm_thread = _CommThread(self)
+        self.ser_ip = ser_ip
+        self.ser_port = ser_port
         self.move_queue = None
         self.socket = None
 
@@ -21,8 +21,7 @@ class PLFAI(AIPlayer):
         self.move_queue = queue.Queue()
 
     def game_is_over(self, is_win):
-        # 获得比赛结果
-        print("You win!" if is_win else "You lose.")
+        pass
 
     def last_move(self, piece, board, history, next_player_color):
         self._board = board.pieces
@@ -48,6 +47,7 @@ class PLFAI(AIPlayer):
             elif self._history[i-1].color != self._history[i].color:
                 turn = turn + 1
         # Box belong stats
+        # 左上角为起始零点，先行后列，从0编号，编号即为左移位数
         R['box'], B['box'] = 0, 0
         for i in range(5):
             for j in range(5):
@@ -58,6 +58,7 @@ class PLFAI(AIPlayer):
                     elif c == Color.blue:
                         B['box'] |= (1 << (i * 5 + j))
         # Edge belong stats
+        # 左上角为起始零点，先行后列，从0编号，编号即为左移位数
         R['H'], R['V'], B['H'], B['V'] = 0, 0, 0, 0
         for i in range(6):
             for j in range(5):
@@ -94,7 +95,7 @@ class PLFAI(AIPlayer):
             }
         }
 
-        self.socket = socket.create_connection(("0.0.0.0", 33301))
+        self.socket = socket.create_connection((self.ser_ip, self.ser_port))
         self.socket.sendall(json.dumps(arg).encode())
 
         raw_data = self.socket.recv(1024).decode()
@@ -133,15 +134,4 @@ class PLFAI(AIPlayer):
             y = str(5 - y)
             x = "abcdef"[x]
         return (x, y, type)
-
-
-class _CommThread(threading.Thread):
-    def __init__(self, PLFAI):
-        super(_CommThread, self).__init__()
-        self.setDaemon(True)
-        self.PLFAI = PLFAI
-        self.receive_queue = Queue.Queue()
-
-    def run(self):
-        pass
 

@@ -12,108 +12,18 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/DotsAndBoxes$main.coverage" NAME="main Coverage Results" MODIFIED="1517023257439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/DotsAndBoxes$dots_and_boxes.coverage" NAME="dots_and_boxes Coverage Results" MODIFIED="1516087968682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/dots_and_boxes" />
-    <SUITE FILE_PATH="coverage/DotsAndBoxes$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1531401010151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DotsAndBoxes" />
+    <SUITE FILE_PATH="coverage/DotsAndBoxes$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1531552321633" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DotsAndBoxes" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="player.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding>
-                <marker date="1531400578000" expanded="true" signature="667:927" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PLF_AI.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PLF_AI.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/PLF_AI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="521">
-              <caret line="129" column="26" lean-forward="false" selection-start-line="129" selection-start-column="26" selection-end-line="129" selection-end-column="26" />
+            <state relative-caret-position="197">
+              <caret line="60" column="37" lean-forward="false" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
               <folding>
                 <element signature="e#24#75#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main_window.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main_window_controller.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="291" column="25" lean-forward="false" selection-start-line="291" selection-start-column="25" selection-end-line="291" selection-end-column="25" />
-              <folding>
-                <element signature="e#24#69#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gm_AI.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/gm_AI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="75" column="35" lean-forward="true" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dots_and_boxes.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-87">
-              <caret line="106" column="37" lean-forward="false" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
-              <folding>
-                <element signature="e#24#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/game.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="80" column="106" lean-forward="false" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="106" />
-              <folding>
-                <element signature="e#24#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
-              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding>
-                <element signature="e#24#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="random_AI.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/random_AI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -144,6 +54,7 @@
       <find>.last_move(</find>
       <find>box</find>
       <find>x</find>
+      <find>游戏结束</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -157,11 +68,11 @@
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/random_AI.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/model.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/__main__.py" />
-        <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/PLF_AI.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/gm_AI.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/player.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py" />
         <option value="$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py" />
+        <option value="$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/PLF_AI.py" />
       </list>
     </option>
   </component>
@@ -750,16 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/PLF_AI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="129" column="26" lean-forward="false" selection-start-line="129" selection-start-column="26" selection-end-line="129" selection-end-column="26" />
-          <folding>
-            <element signature="e#24#75#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/gm_AI.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="489">
@@ -780,7 +681,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/dots_and_boxes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-87">
+        <state relative-caret-position="18">
           <caret line="106" column="37" lean-forward="false" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
           <folding>
             <element signature="e#24#41#0" expanded="true" />
@@ -790,10 +691,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DotsAndBoxes/main_window_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="291" column="25" lean-forward="false" selection-start-line="291" selection-start-column="25" selection-end-line="291" selection-end-column="25" />
+        <state relative-caret-position="518">
+          <caret line="141" column="52" lean-forward="false" selection-start-line="141" selection-start-column="52" selection-end-line="141" selection-end-column="52" />
           <folding>
             <element signature="e#24#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DotsAndBoxes/dots_and_boxes/AIPlayer/PLF_AI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="60" column="37" lean-forward="false" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
+          <folding>
+            <element signature="e#24#75#0" expanded="true" />
           </folding>
         </state>
       </provider>
