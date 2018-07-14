@@ -13,20 +13,26 @@ class PLFAI(AIPlayer):
         self.ser_port = ser_port
         self.move_queue = None
         self.socket = None
+        self.turn = 0
 
-        self.timeout = 20
+        self.timeout = 10
         self.algorithm = "PV-MCTS"
 
     def start_new_game(self):
         self.move_queue = queue.Queue()
+        self.turn = 0
 
     def game_is_over(self, is_win):
         pass
 
     def last_move(self, piece, board, history, next_player_color):
-        self._board = board.pieces
+        self._board = board
         self._history = history
         self._last_piece = piece
+        if piece == None:
+            self.turn = 1
+        elif piece.color != next_player_color:
+            self.turn = self.turn + 1
         if (next_player_color == self.color):
             self.__thread = threading.Thread(target=self.move)
             self.__thread.start()
@@ -40,19 +46,14 @@ class PLFAI(AIPlayer):
         # In tf-dab server R means the first player and B means the second one.
         # In GUI client red means human player and blue means robot player.
         R, B = {}, {}
-        turn = 1
-        for i in range(len(self._history)):
-            if i == 0:
-                turn = turn + 1
-            elif self._history[i-1].color != self._history[i].color:
-                turn = turn + 1
+        pieces = self._board.pieces
         # Box belong stats
         # 左上角为起始零点，先行后列，从0编号，编号即为左移位数
         R['box'], B['box'] = 0, 0
         for i in range(5):
             for j in range(5):
-                if self._board[i*2+1][j*2+1] != 0:
-                    c = (self._board[i*2+1][j*2+1])[0]
+                if pieces[i*2+1][j*2+1] != 0:
+                    c = (pieces[i*2+1][j*2+1])[0]
                     if c == Color.red:
                         R['box'] |= (1 << (i * 5 + j))
                     elif c == Color.blue:
@@ -62,16 +63,16 @@ class PLFAI(AIPlayer):
         R['H'], R['V'], B['H'], B['V'] = 0, 0, 0, 0
         for i in range(6):
             for j in range(5):
-                if self._board[i*2][j*2+1] != 0:
-                    c = self._board[i*2][j*2+1].color
+                if pieces[i*2][j*2+1] != 0:
+                    c = pieces[i*2][j*2+1].color
                     if c == Color.red:
                         R['H'] |= (1 << (i * 5 + j))
                     elif c == Color.blue:
                         B['H'] |= (1 << (i * 5 + j))
         for i in range(5):
             for j in range(6):
-                if self._board[i*2+1][j*2] != 0:
-                    c = self._board[i*2+1][j*2].color
+                if pieces[i*2+1][j*2] != 0:
+                    c = pieces[i*2+1][j*2].color
                     if c == Color.red:
                         R['V'] |= (1 << (i * 6 + j))
                     elif c == Color.blue:
@@ -90,7 +91,7 @@ class PLFAI(AIPlayer):
             "id": int(time.time()),
             "params": {
                 "Algorithm": self.algorithm,
-                "Board": {"R": R, "B": B, "S": [s0, s1], "Now": now, "Turn": turn},
+                "Board": {"R": R, "B": B, "S": [s0, s1], "Now": now, "Turn": self.turn},
                 "Timeout": self.timeout
             }
         }
@@ -102,10 +103,26 @@ class PLFAI(AIPlayer):
         self.socket.close()
         json_data = json.loads(raw_data)
         ms = (json_data["result"]["H"], json_data["result"]["V"])
+        moves = []
         for i in range(2):
             for n in range(30):
                 if ((1 << n) & ms[i]) != 0:
-                    self.move_queue.put(self._num2move(((1 << n) | (i << 31))))
+                    moves.append(self._num2move(((1 << n) | (i << 31))))
+        print(moves)
+        while len(moves) > 1:
+            for m in moves:
+                p = Piece(self.color, m)
+                x, y = p.coordinate
+                print((x,y))
+                self._board.set_piece(p)
+                if (self._check_box((x-1, y)) or self._check_box((x+1, y)) or self._check_box((x, y-1)) or self._check_box((x, y+1))):
+                    self._board.unset_piece(p)
+                    self.move_queue.put(m)
+                    moves.remove(m)
+                    break
+                else:
+                    self._board.unset_piece(p)
+        self.move_queue.put(moves[0])
 
         super(PLFAI, self).move(self.move_queue.get())
 
@@ -134,4 +151,21 @@ class PLFAI(AIPlayer):
             y = str(5 - y)
             x = "abcdef"[x]
         return (x, y, type)
+
+    def _check_box(self, box_coordinate):  # 判断格子是否封闭
+        x = box_coordinate[0]
+        y = box_coordinate[1]
+
+        if (x < 0 or x > 10 or y < 0 or y > 10):  # 判断坐标是否越界，如果越界直接返回否
+            return False
+        if (self._board.pieces[x][y] == -1):  # 判断坐标是否为点，如果是点直接返回否
+            return False
+
+        if (self._board.pieces[x-1][y] == 0
+            or self._board.pieces[x+1][y] == 0
+            or self._board.pieces[x][y-1] == 0
+            or self._board.pieces[x][y+1] == 0):
+            return False
+
+        return True
 
