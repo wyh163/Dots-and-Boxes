@@ -6,7 +6,7 @@ from ..model import *
 
 
 class PLFAI(AIPlayer):
-    def __init__(self, color, name, game_controller, ser_ip="0.0.0.0", ser_port=33301):
+    def __init__(self, color, name, game_controller, ser_ip="192.168.1.108", ser_port=33301):
         super(PLFAI, self).__init__(color, name, game_controller)
         self._game_controller = game_controller
         self.ser_ip = ser_ip
@@ -29,10 +29,16 @@ class PLFAI(AIPlayer):
         self._board = board
         self._history = history
         self._last_piece = piece
-        if piece == None:
-            self.turn = 1
-        elif piece.color != next_player_color:
-            self.turn = self.turn + 1
+        self.turn = 0
+        if len(history) <= 1:
+            self.turn = len(history)
+        else:
+            for i in range(1, len(history)):
+                if history[i].color != history[i-1].color:
+                    self.turn = self.turn + 1
+            if next_player_color != history[-1].color:
+                    self.turn = self.turn + 1
+
         if (next_player_color == self.color):
             self.__thread = threading.Thread(target=self.move)
             self.__thread.start()
@@ -46,6 +52,7 @@ class PLFAI(AIPlayer):
         # In tf-dab server R means the first player and B means the second one.
         # In GUI client red means human player and blue means robot player.
         R, B = {}, {}
+        print(self.turn)
         pieces = self._board.pieces
         # Box belong stats
         # 左上角为起始零点，先行后列，从0编号，编号即为左移位数
@@ -116,7 +123,6 @@ class PLFAI(AIPlayer):
                 print((x,y))
                 self._board.set_piece(p)
                 if (self._check_box((x-1, y)) or self._check_box((x+1, y)) or self._check_box((x, y-1)) or self._check_box((x, y+1))):
-                    self._board.unset_piece(p)
                     self.move_queue.put(m)
                     moves.remove(m)
                     break
