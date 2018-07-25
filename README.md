@@ -20,14 +20,13 @@ DotsAndBoxes是一个点格棋博弈软件，可用于人人对战，人机对�
 程序使用py3实现点格棋对弈基础功能，并使用pyqt5构建了人机交互界面。
 
 ##### 安装方法
-pip install DotsAndBoxes
+pip3 install DotsAndBoxes
 
 ##### 运行环境要求：
 Python3
 
 ##### UI界面适配
-Windows 10
-Ubuntu Desktop 1604
+Windows 10；Ubuntu Desktop 1604
 
 
 ### 感谢
