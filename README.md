@@ -3,11 +3,14 @@
 
 #### Dots-and-Boxes项目介绍
 
+
 Dots-and-Boxes项目旨在使用Python语言编写一个简单易用扩展性强的点格棋对弈软件。本项目由[@EverybodyLies](https://github.com/Everyb0dyLies)开发维护。
 
 本软件的一个分支是应中国大学生计算机博弈大赛组委会邀请，定制开发的官方打谱软件，本软件支持官方标准棋谱，并欢迎开发者接入自有AI或二次定制开发。参加中国大学生计算机博弈大赛可以在符合本软件开源许可协议及大赛规则的情况下使用本软件全部或部分代码，也可以不使用本软件。
 
+
 #### DotsAndBoxes点格棋对弈软件
+
 
 DotsAndBoxes是一个点格棋博弈软件，可用于人人对战，人机对战和机机对战功能。
 
@@ -27,7 +30,9 @@ Python3
 Windows 10
 Ubuntu Desktop 1604
 
+
 #### 感谢
+
 
 非常感谢以下两位学长的帮助与指导
 
@@ -35,8 +40,10 @@ Ubuntu Desktop 1604
 
 [@zhangyp]
 
+
 #### License
 
-liarcom is licensed under the GNU General Public License v3.0
+
+liarcom is licensed under the MIT License
 
 重申本代码仅用于实验和学习，使用者的一切商业行为及非法行为皆由其本人承担责任。
