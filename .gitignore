@@ -1,3 +1,6 @@
+# 工程文件
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -11,7 +14,7 @@ __pycache__/
 env/
 build/
 develop-eggs/
-dist/
+#dist/
 downloads/
 eggs/
 .eggs/
