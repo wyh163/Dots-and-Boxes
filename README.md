@@ -33,7 +33,7 @@ Windows 10；Ubuntu Desktop 1604
 
 非常感谢以下两位学长的帮助与指导
 
-[@yimmon](https://github.com/yimmon)，他开发了一个非常厉害的点格棋AI[@dots-and-boxes](https://github.com/yimmon/dots-and-boxes)
+[@yimmon](https://github.com/yimmon)，他开发了一个非常厉害的点格棋AI（[dots-and-boxes](https://github.com/yimmon/dots-and-boxes)）
 
 [@zhangyp]()
 
