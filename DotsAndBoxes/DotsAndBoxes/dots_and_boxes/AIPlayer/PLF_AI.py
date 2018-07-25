@@ -6,7 +6,7 @@ from ..model import *
 
 
 class PLFAI(AIPlayer):
-    def __init__(self, color, name, game_controller, ser_ip="192.168.1.108", ser_port=33301):
+    def __init__(self, color, name, game_controller, ser_ip="0.0.0.0", ser_port=33301):
         super(PLFAI, self).__init__(color, name, game_controller)
         self._game_controller = game_controller
         self.ser_ip = ser_ip
@@ -52,7 +52,6 @@ class PLFAI(AIPlayer):
         # In tf-dab server R means the first player and B means the second one.
         # In GUI client red means human player and blue means robot player.
         R, B = {}, {}
-        print(self.turn)
         pieces = self._board.pieces
         # Box belong stats
         # 左上角为起始零点，先行后列，从0编号，编号即为左移位数
@@ -115,7 +114,7 @@ class PLFAI(AIPlayer):
             for n in range(30):
                 if ((1 << n) & ms[i]) != 0:
                     moves.append(self._num2move(((1 << n) | (i << 31))))
-        print(moves)
+
         while len(moves) > 1:
             for m in moves:
                 p = Piece(self.color, m)
