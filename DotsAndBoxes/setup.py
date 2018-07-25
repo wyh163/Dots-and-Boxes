@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='DotsAndBoxes',
-    version='1.0.3',
+    version='1.1.0',
     description=(
         '点格棋对弈软件'
     ),
